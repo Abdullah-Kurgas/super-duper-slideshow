@@ -1,0 +1,52 @@
+.login {
+  padding: 10vw;
+  width: 50%;
+  z-index: 1;
+  box-shadow: 0px 0px 10px gray;
+}
+.bg-login {
+  width: 50%;
+  height: 100vh;
+  background-color: aqua;
+}
+
+.input {
+  margin: 10px 0;
+  box-sizing: border-box;
+  position: relative;
+
+  i {
+    position: absolute;
+    padding: 15px;
+    height: 100%;
+    border-right: 1px solid;
+  }
+
+  input {
+    padding: 15px;
+    padding-left: 3.5rem;
+    border-radius: 5px;
+    border: 1px solid;
+    line-height: normal;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+.hr-line {
+  height: 1px;
+  width: 100%;
+  margin: 4rem 0;
+  background-color: gray;
+  position: relative;
+  div {
+    position: absolute;
+    background-color: white;
+    padding: 5px 15px;
+    bottom: -14px;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+}
