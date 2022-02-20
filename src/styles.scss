@@ -2,8 +2,6 @@
 @import "~bootstrap/scss/bootstrap";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
-$text-color: #d2d2d0;
-
 html,
 body {
   height: 100%;
@@ -11,6 +9,10 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.text-color {
+  color: #d2d2d0;
 }
 
 .s-btn {

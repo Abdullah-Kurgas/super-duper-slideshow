@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/User';
-import { LoginService } from 'src/app/shared/services/login.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +11,22 @@ import { LoginService } from 'src/app/shared/services/login.service';
 export class LoginComponent implements OnInit {
   user: User = new User();
 
-  constructor(private loginService: LoginService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {}
 
   executeLogin() {
-    this.loginService.executeLogin(this.user).subscribe((res) => {
-      console.log(res);
-    });
+    this.userService.executeLogin(this.user).subscribe(
+      (user: User) => {
+        if (!user.id) return;
+
+        localStorage.setItem('userStored', JSON.stringify(user));
+
+        this.router.navigate(['dashboard']);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
