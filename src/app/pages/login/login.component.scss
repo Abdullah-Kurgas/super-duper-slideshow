@@ -50,3 +50,10 @@
     transform: translate(-50%, 0);
   }
 }
+.link{
+  cursor: pointer;
+  display: inline;
+  &:hover{
+    opacity: .6;
+  }
+}

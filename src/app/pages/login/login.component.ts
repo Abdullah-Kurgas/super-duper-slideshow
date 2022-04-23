@@ -10,23 +10,22 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class LoginComponent implements OnInit {
   user: User = new User();
+  isCheckBoxChecked: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   executeLogin() {
-    this.userService.executeLogin(this.user).subscribe(
-      (user: User) => {
-        if (!user.id) return;
+    this.userService.executeLogin(this.user).subscribe((user: User) => {
+      if (!user.id) return;
 
-        localStorage.setItem('userStored', JSON.stringify(user));
-
-        this.router.navigate(['dashboard']);
-      },
-      (err) => {
-        console.log(err);
+      if (this.isCheckBoxChecked) {
+        localStorage.setItem('userData', JSON.stringify(user));
+      } else {
+        sessionStorage.setItem('userData', JSON.stringify(user));
       }
-    );
+      this.router.navigate(['dashboard']);
+    })
   }
 }

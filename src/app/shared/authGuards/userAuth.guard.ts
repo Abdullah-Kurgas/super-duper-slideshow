@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
+import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
 
@@ -13,19 +7,17 @@ import { User } from '../models/User';
   providedIn: 'root',
 })
 export class UserAuth implements CanActivate {
-  storedUser: User = JSON.parse(localStorage.getItem('userStored') || '{}');
-  constructor(private router: Router) {}
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    if (this.storedUser.id) {
+  userData: User = new User();
+
+  constructor(private router: Router) { }
+  canActivate(): | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    this.userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
+
+    if (this.userData.id) {
       return true;
     }
+
+    this.router.navigate(['login']);
     return false;
   }
 }
