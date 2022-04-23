@@ -13,16 +13,21 @@ import { CreateComponent } from './pages/create/create.component';
 import { SlideshowComponent } from './pages/slideshow/slideshow.component';
 import { SlideshowsComponent } from './pages/slideshows/slideshows.component';
 
+// Material modules
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalComponent } from './components/modal/modal.component';
+
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, ModalComponent],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule,
+    BrowserModule,
     FormsModule,
+    HttpClientModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

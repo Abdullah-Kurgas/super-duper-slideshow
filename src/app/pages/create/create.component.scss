@@ -1,0 +1,15 @@
+.create-btn{
+    padding: 1rem;
+    border-radius: 15px;
+    border: 1px dashed;
+    display: inline-block;
+    cursor: pointer;
+
+    i{
+        font-size: 2rem;
+    }
+
+    &:hover{
+        background-color: gainsboro;
+    }
+}
