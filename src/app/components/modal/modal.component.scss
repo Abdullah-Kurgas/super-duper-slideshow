@@ -1,0 +1,34 @@
+
+// Image Upload input
+.file-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #919191;
+    border: 1px dashed #919191;
+    height: 10rem;
+    max-width: 25rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 0 1rem;
+    border-radius: 15px;
+
+    img {
+        width: 100%;
+    }
+
+    input[type="file"] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        background: white;
+        cursor: inherit;
+    }
+}

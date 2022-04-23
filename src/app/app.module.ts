@@ -16,6 +16,8 @@ import { SlideshowsComponent } from './pages/slideshows/slideshows.component';
 // Material modules
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './components/modal/modal.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, ModalComponent],
@@ -25,7 +27,9 @@ import { ModalComponent } from './components/modal/modal.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    MatDialogModule
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],
