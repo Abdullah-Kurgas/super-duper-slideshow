@@ -1,1 +1,21 @@
-<p>dashboard works!</p>
+<div>
+    <div class="header d-flex justify-content-between py-3">
+        <h1 class="mx-4"><b>Super Duper Slideshow</b></h1>
+        <div>
+            <span>admin2</span>
+            <span class="mx-3 btn" (click)="logout()">Logout</span>
+        </div>
+    </div>
+
+    <div class="row mx-3 content">
+        <div class="col-3">
+            <div><p class="btn text-start p-0 mb-3" [class]="!router.url.includes('slideshows') ? 'fw-bold mx-2' : ''" [routerLink]="'/dashboard/create'">Create</p></div>
+            <div><p class="btn text-start p-0" [class]="router.url.includes('slideshows') ? 'fw-bold mx-2' : ''" [routerLink]="'/dashboard/slideshows'">My Slideshows</p></div>
+        </div>
+
+        <div class="col-9">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>

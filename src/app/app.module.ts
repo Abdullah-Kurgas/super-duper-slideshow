@@ -9,9 +9,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { CreateComponent } from './pages/create/create.component';
+import { SlideshowComponent } from './pages/slideshow/slideshow.component';
+import { SlideshowsComponent } from './pages/slideshows/slideshows.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
