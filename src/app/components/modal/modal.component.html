@@ -1,15 +1,27 @@
 <div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
         <h3 class="m-0">Add Slide</h3>
-        <button mat-icon-button class="mx-1">
-            <mat-icon>close</mat-icon>
-        </button>
+        <mat-icon role="button" (click)="dialogRef.close()">close</mat-icon>
     </div>
-    <div>
+    <div class="text-center">
         <div class="file-input">
             Click to pick image or drag and drop image here
-        <input type="file" name="image" required />
-      </div>
-  
+            <input type="file" name="image" required />
+        </div>
+        <h2 class="my-2">OR</h2>
+        <div>
+            <input type="text" name="ytVideoUrl" class="w-100 text-center p-2" placeholder="Paste YT video URL here">
+        </div>
+        <h2 class="my-2">OR</h2>
+        <div>
+            <input type="text" name="websiteUrl" class="w-100 text-center p-2" placeholder="Paste website URL here">
+        </div>
+        <div class="row align-items-center mt-4 mx-1">
+            <h4 class="col-5 m-0 p-0 text-start">Slide duration</h4>
+            <input type="text" name="duration" class="col-7 text-center p-2">
+        </div>
+        <div class="d-flex justify-content-end mt-3">
+            <button mat-stroked-button>Done</button>
+        </div>
     </div>
 </div>

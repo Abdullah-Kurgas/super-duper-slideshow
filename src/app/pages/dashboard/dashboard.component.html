@@ -8,12 +8,12 @@
     </div>
 
     <div class="row mx-3 content">
-        <div class="col-2">
+        <div class="col-3">
             <div><p class="text-start p-0 mb-3" role="button" [class]="!router.url.includes('slideshows') ? 'fw-bold mx-2' : ''" [routerLink]="'/dashboard/create'">Create</p></div>
             <div><p class="text-start p-0" role="button" [class]="router.url.includes('slideshows') ? 'fw-bold mx-2' : ''" [routerLink]="'/dashboard/slideshows'">My Slideshows</p></div>
         </div>
 
-        <div class="col-10">
+        <div class="col-9">
             <router-outlet></router-outlet>
         </div>
     </div>

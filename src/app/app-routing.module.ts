@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent, canActivate: [UserAuth], children: [
       { path: 'create', component: CreateComponent },
-      { path: 'slideshow/:uuid', component: SlideshowComponent },
+      { path: 'slideshow/:id', component: SlideshowComponent },
       { path: 'slideshows', component: SlideshowsComponent }
     ]
   },
