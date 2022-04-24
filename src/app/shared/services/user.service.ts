@@ -7,6 +7,8 @@ import { User } from '../models/User';
   providedIn: 'root',
 })
 export class UserService {
+  userData: User = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}')
+  
   constructor(private http: HttpClient) {}
 
   executeLogin(user: User) {

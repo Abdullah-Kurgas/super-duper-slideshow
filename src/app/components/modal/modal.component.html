@@ -6,22 +6,22 @@
     <div class="text-center">
         <div class="file-input">
             Click to pick image or drag and drop image here
-            <input type="file" name="image" required />
+            <input type="file" name="image" (change)="getImage()"/>
         </div>
         <h2 class="my-2">OR</h2>
         <div>
-            <input type="text" name="ytVideoUrl" class="sl-input" placeholder="Paste YT video URL here">
+            <input type="text" name="ytVideoUrl"  class="sl-input" placeholder="Paste YT video URL here" [(ngModel)]="slide.video_url">
         </div>
         <h2 class="my-2">OR</h2>
         <div>
-            <input type="text" name="websiteUrl" class="sl-input" placeholder="Paste website URL here">
+            <input type="text" name="websiteUrl" class="sl-input" placeholder="Paste website URL here" [(ngModel)]="slide.website_url">
         </div>
         <div class="row align-items-center mt-4 mx-1">
             <h4 class="col-5 m-0 p-0 text-start">Slide duration</h4>
-            <input type="text" name="duration" class="col-7 text-center p-2">
+            <input type="text" name="duration" class="col-7 text-center p-2" required [(ngModel)]="slide.duration">
         </div>
         <div class="d-flex justify-content-end mt-3">
-            <button mat-stroked-button>Done</button>
+            <button mat-stroked-button (click)="create()">Done</button>
         </div>
     </div>
 </div>
@@ -33,9 +33,9 @@
     </div>
     <div class="mt-4">
         <span class="fw-bold">Slideshow name</span>
-        <input type="text" name="slideshowName" class="p-1 mx-3">
+        <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.name">
     </div>
     <div class="d-flex justify-content-end mt-3">
-        <button mat-stroked-button>Create</button>
+        <button mat-stroked-button (click)="create()">Create</button>
     </div>
 </div>
