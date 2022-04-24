@@ -1,1 +1,52 @@
-<p>slideshow works!</p>
+<div>
+    <div class="slideshow-info">
+        <div>
+            <span class="fw-bold">Slideshow name</span>
+            <input type="text" name="slideshowName" class="p-1 mx-3">
+        </div>
+        <div>
+            <span class="fw-bold">Slideshow URL</span>
+            <input type="text" name="slideshowName" class="p-1 mx-3">
+            <span role="button">Copy</span>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center">
+        <div class="d-flex flex-column align-items-center">
+            <div class="row">
+                <button mat-icon-button class="col-6">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="col-6">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            <div class="slide-content">
+                <h2 class="m-0">Superslide.show</h2>
+            </div>
+
+            <input type="text" name="duration" class="w-75 mt-2 text-center" disabled value="10">
+        </div>
+        <div class="d-flex flex-column align-items-center">
+            <div class="row">
+                <button mat-icon-button class="col-6">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="col-6">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            <div class="slide-content">
+                <img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY67_CR1,0,45,67_AL_.jpg"
+                    alt="">
+            </div>
+
+            <input type="text" name="duration" class="w-75 mt-2 text-center" disabled value="10">
+        </div>
+        <div class="create-btn">
+            <i class="bi bi-plus"></i>
+        </div>
+    </div>
+
+    <button mat-flat-button color="primary" class="mt-5 px-5">Preview</button>
+</div>

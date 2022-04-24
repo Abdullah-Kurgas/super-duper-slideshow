@@ -1,0 +1,28 @@
+.slideshow-info {
+    div {
+        display: grid;
+        grid-template-columns: 7rem 20rem 1rem;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
+
+        input {
+            margin: 0 .5rem;
+            box-sizing: border-box;
+        }
+    }
+}
+
+.slide-content{
+    height: 10rem;
+    min-width: 10rem;
+    border: 1px solid;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img{
+        height: 100%;
+    }
+}
