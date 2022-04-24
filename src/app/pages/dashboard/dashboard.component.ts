@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/shared/models/User';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  userData: User = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}')
 
   constructor(public router: Router) { }
 
