@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="data.type === 'slide'">
     <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
         <h3 class="m-0">Add Slide</h3>
         <mat-icon role="button" (click)="dialogRef.close()">close</mat-icon>
@@ -24,4 +24,8 @@
             <button mat-stroked-button>Done</button>
         </div>
     </div>
+</div>
+
+<div *ngIf="data.type === 'slideshow'">
+    <h2>Create slideshow</h2>
 </div>

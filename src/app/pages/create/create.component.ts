@@ -14,8 +14,12 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openDialog() {
-    this.dialog.open(ModalComponent);
+  openDialog(type: string) {
+    this.dialog.open(ModalComponent, {
+      data: {
+        type: type
+      }
+    });
   }
 
 }
