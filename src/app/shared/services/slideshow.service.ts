@@ -14,8 +14,8 @@ export class SlideshowService {
     return this.http.get(environment.backendUrl + 'getUuid');
   }
 
-  getSlideshow(uuid: string){
-    return this.http.get(environment.backendUrl + `getSlideshow/${uuid}`);
+  getSlideshow(id: number){
+    return this.http.get(environment.backendUrl + `getSlideshow/${id}`);
   }
 
   createSlideshow(data: Slideshow) {

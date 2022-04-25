@@ -35,7 +35,7 @@ export class CreateComponent implements OnInit {
           slideshow.url = res.uuid;
 
           this.slideshowService.createSlideshow(slideshow).subscribe(res => {
-            this.router.navigate([`dashboard/slideshow/${slideshow.url}`]);
+            this.router.navigate([`dashboard/slideshow/${slideshow.id}`]);
           })
         })
       }

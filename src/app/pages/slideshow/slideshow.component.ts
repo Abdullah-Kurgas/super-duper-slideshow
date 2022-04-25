@@ -30,7 +30,7 @@ export class SlideshowComponent implements OnInit {
     });
 
     newSlide.afterClosed().subscribe((data) => {
-      console.log(data);
+      
 
     })
   }

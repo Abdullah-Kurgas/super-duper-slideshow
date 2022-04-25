@@ -12,7 +12,7 @@
     </div>
 
     <div class="d-flex align-items-center">
-        <div class="d-flex flex-column align-items-center mx-2">
+        <div class="d-flex flex-column align-items-center mx-2" *ngFor="let slide of slideshow.slides">
             <div class="row">
                 <button mat-icon-button class="col-6">
                     <mat-icon>edit</mat-icon>
@@ -21,27 +21,13 @@
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
+
             <div class="slide-content">
-                <h2 class="m-0">Superslide.show</h2>
+                <h2 *ngIf="slide.website_url" class="m-0">{{slide.website_url}}</h2>
+                <img *ngIf="slide.image" [src]="slide.image"alt="">
             </div>
 
-            <input type="text" name="duration" class="w-75 mt-2 text-center" disabled value="10">
-        </div>
-        <div class="d-flex flex-column align-items-center mx-2">
-            <div class="row">
-                <button mat-icon-button class="col-6">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button class="col-6">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </div>
-            <div class="slide-content">
-                <img src="data:image/jpeg;base64,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"
-                    alt="">
-            </div>
-
-            <input type="text" name="duration" class="w-75 mt-2 text-center" disabled value="10">
+            <input type="text" name="duration" class="w-75 mt-2 text-center" disabled [value]="slide.duration">
         </div>
         <div class="create-btn" (click)="openDialog('slide')">
             <i class="bi bi-plus"></i>
