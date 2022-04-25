@@ -17,10 +17,10 @@
                 </div>
             </div>
             <div>
-                <button mat-icon-button>
+                <button mat-icon-button [routerLink]="'/dashboard/slideshow/'+ slideshow.url">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button class="mx-1">
+                <button mat-icon-button class="mx-1" (click)="deleteSlideshow(slideshow.id, i)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>

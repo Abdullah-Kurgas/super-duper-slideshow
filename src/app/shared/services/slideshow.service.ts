@@ -18,11 +18,15 @@ export class SlideshowService {
     return this.http.put(environment.backendUrl + `getSlideshow`, { uuid: uuid });
   }
 
-  getSlideshows(id: number){
+  getSlideshows(id: number) {
     return this.http.get(environment.backendUrl + `getSlideshows/${id}`);
   }
 
   createSlideshow(data: Slideshow) {
     return this.http.post(environment.backendUrl + 'createSlideshow', data);
+  }
+
+  deleteSlideshow(id: number) {
+    return this.http.delete(environment.backendUrl + 'deleteSlideshow/' + id);
   }
 }

@@ -32,7 +32,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 1500
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
