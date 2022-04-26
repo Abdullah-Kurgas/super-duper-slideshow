@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 import { SlideshowService } from 'src/app/shared/services/slideshow.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -17,11 +18,15 @@ export class CreateComponent implements OnInit {
   constructor(public dialog: MatDialog,
     private slideshowService: SlideshowService,
     private userService: UserService,
+    private loaderService: LoaderService,
     private router: Router,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
+    setTimeout(()=>{
+      this.loaderService.hideFullScreenLoading();
+    }, 0)
   }
 
   openDialog(type: string) {
@@ -37,14 +42,20 @@ export class CreateComponent implements OnInit {
           slideshow.user_id = this.userService.userData.id;
           slideshow.url = res.uuid;
 
-          this.slideshowService.createSlideshow(slideshow).subscribe(res => {
+          this.slideshowService.createSlideshow(slideshow).subscribe((res: any) => {
+            if (res.errno) {
+              this.toastr.error(res.sqlMessage);
+              return;
+            }
+
             this.toastr.success('Slideshow successfully created');
             this.router.navigate([`dashboard/slideshow/${slideshow.url}`]);
           })
+        }, err => {
+          this.toastr.error(err.error.message);
         })
       }
 
     })
   }
-
 }

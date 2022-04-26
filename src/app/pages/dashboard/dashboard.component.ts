@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/User';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(public router: Router, public userService: UserService) { }
+  constructor(public router: Router, public userService: UserService, private loaderService: LoaderService) { }
 
   ngOnInit(): void {
     if (this.router.url === '/dashboard')
@@ -24,6 +25,13 @@ export class DashboardComponent implements OnInit {
       sessionStorage.removeItem('userData');
     }
     this.router.navigate(['login']);
+  }
+
+  changeRoute(route: string) {
+    if (!this.router.url.includes(route)) {
+      this.loaderService.showFullScreenLoading();
+    }
+    this.router.navigate([`dashboard/${route}`]);
   }
 
 }

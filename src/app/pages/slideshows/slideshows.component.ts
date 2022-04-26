@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 import { SlideshowService } from 'src/app/shared/services/slideshow.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { environment } from 'src/environments/environment.prod';
@@ -16,12 +17,14 @@ export class SlideshowsComponent implements OnInit {
 
   constructor(private slideshowService: SlideshowService,
     private userService: UserService,
+    private loaderService: LoaderService,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.slideshowService.getSlideshows(this.userService.userData.id!).subscribe(slideshows => {
       this.slideshows = slideshows;
+      this.loaderService.hideFullScreenLoading();
     })
   }
 

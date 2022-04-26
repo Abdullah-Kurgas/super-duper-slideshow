@@ -20,9 +20,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ModalComponent } from './components/modal/modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, ModalComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, ModalComponent, LoaderComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
