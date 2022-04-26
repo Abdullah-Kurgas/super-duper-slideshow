@@ -17,6 +17,8 @@
     display: flex;
     align-items: center;
     min-height: 15rem;
+    overflow: auto;
+    padding: 1rem 0;
 
     .slide-content {
         height: 10rem;
