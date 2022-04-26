@@ -1,27 +1,30 @@
 <div *ngIf="data.type === 'slide'">
     <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
         <h3 class="m-0">Add Slide</h3>
-        <mat-icon role="button" (click)="dialogRef.close()">close</mat-icon>
+        <mat-icon role="button" (click)="modal.close()">close</mat-icon>
     </div>
     <div class="text-center">
-        <div class="file-input">
-            Click to pick image or drag and drop image here
-            <input type="file" name="image" (change)="getImage()"/>
+        <div class="file-input" [style]="uploadedImage ? 'background-image: url(' + uploadedImage + ')' : ''">
+            {{!uploadedImage ? 'Click to pick image or drag and drop image here' : ''}}
+            <input type="file" name="image" (change)="uploadImage($event)" />
         </div>
         <h2 class="my-2">OR</h2>
         <div>
-            <input type="text" name="ytVideoUrl"  class="sl-input" placeholder="Paste YT video URL here" [(ngModel)]="slide.video_url">
+            <input type="text" name="ytVideoUrl" class="sl-input" placeholder="Paste YT video URL here"
+                [(ngModel)]="slide.video_url">
         </div>
         <h2 class="my-2">OR</h2>
         <div>
-            <input type="text" name="websiteUrl" class="sl-input" placeholder="Paste website URL here" [(ngModel)]="slide.website_url">
+            <input type="text" name="websiteUrl" class="sl-input" placeholder="Paste website URL here"
+                [(ngModel)]="slide.website_url">
         </div>
         <div class="row align-items-center mt-4 mx-1">
             <h4 class="col-5 m-0 p-0 text-start">Slide duration</h4>
-            <input type="text" name="duration" class="col-7 text-center p-2" required [(ngModel)]="slide.duration">
+            <input type="text" name="duration" class="col-7 text-center p-2" required
+                [(ngModel)]="!slide.duration ? 0 : slide.duration">
         </div>
         <div class="d-flex justify-content-end mt-3">
-            <button mat-stroked-button (click)="create()">Done</button>
+            <button mat-stroked-button (click)="createSlide()">Create</button>
         </div>
     </div>
 </div>
@@ -29,13 +32,13 @@
 <div *ngIf="data.type === 'slideshow'">
     <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
         <h3 class="m-0">Create Slideshow</h3>
-        <mat-icon role="button" (click)="dialogRef.close()">close</mat-icon>
+        <mat-icon role="button" (click)="modal.close()">close</mat-icon>
     </div>
     <div class="mt-4">
         <span class="fw-bold">Slideshow name</span>
         <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.name">
     </div>
     <div class="d-flex justify-content-end mt-3">
-        <button mat-stroked-button (click)="create()">Create</button>
+        <button mat-stroked-button (click)="createSlide()">Create</button>
     </div>
 </div>

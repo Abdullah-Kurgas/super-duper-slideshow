@@ -2,6 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Slide } from 'src/app/shared/models/Slide';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
+import { ImageService } from 'src/app/shared/services/image.service';
+import { LoaderService } from 'src/app/shared/services/loader.service';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-modal',
@@ -9,24 +12,53 @@ import { Slideshow } from 'src/app/shared/models/Slideshow';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-
   slide: Slide = new Slide();
   slideshow: Slideshow = new Slideshow();
 
-  constructor(public dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  image!: File;
+  uploadedImage: any;
+
+  constructor(
+    public modal: MatDialogRef<ModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private imageService: ImageService,
+    private loaderService: LoaderService
+  ) { }
 
   ngOnInit(): void { }
 
-  create(){
-    if(this.data.type === 'slide'){
-      this.dialogRef.close(this.slide);
-    }else{
-      this.dialogRef.close(this.slideshow)
+  createSlide() {
+    this.loaderService.showLoading();
+    if (this.data.type === 'slideshow') return this.modal.close(this.slideshow);
+
+    if (this.image) {
+      let formData = new FormData();
+      formData.append('file', this.image);
+      formData.append('upload_preset', environment.uploadPreset);
+
+      this.imageService.uploadImage(formData).subscribe((imgData: any) => {
+        this.slide.image = imgData.url;
+        this.slide.slideshow_id = this.data.slideshow.id;
+
+        this.modal.close(this.slide);
+      });
+      return;
     }
+
+    this.modal.close(this.slide);
   }
 
-  getImage(){
+  uploadImage(e: any) {
+    this.image = e.target.files[0];
 
+    if (this.image) {
+      let reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        this.uploadedImage = reader.result;
+      };
+    }
+    this.uploadedImage = undefined;
   }
+
 }

@@ -1,4 +1,4 @@
-<div class="loader" *ngIf="loaderService.isFullScreenLoading">
+<div class="loader" [style.backgroundColor]="loaderService.isLoading ? '#ffffff00' : 'rgb(0 0 0 / 19%)'">
     <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>

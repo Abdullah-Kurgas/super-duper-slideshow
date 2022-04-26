@@ -27,6 +27,7 @@ export class SlideshowComponent implements OnInit {
   openDialog(type: string) {
     let newSlide = this.dialog.open(ModalComponent, {
       data: {
+        slideshow: this.slideshow,
         type: type
       }
     });

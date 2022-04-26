@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://localhost:3000/'
+  backendUrl: 'http://localhost:3000/',
+  cloudName: 'dzbizu8pe',
+  uploadPreset: 'awhrycmx',
 };
 
 /*
