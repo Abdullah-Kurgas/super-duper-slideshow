@@ -16,13 +16,12 @@
                     <span>Expires in 13 days</span>
                 </div>
             </div>
-            <div>
-                <button mat-icon-button [routerLink]="'/dashboard/slideshow/'+ slideshow.url">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button class="mx-1" (click)="deleteSlideshow(slideshow.id, i)">
-                    <mat-icon>delete</mat-icon>
-                </button>
+            <div class="mx-2 d-flex align-items-center">
+                <mat-icon role="button" [routerLink]="'/dashboard/slideshow/'+ slideshow.url">edit</mat-icon>
+                <mat-icon role="button" class="mx-2 text-danger" (click)="deleteSlideshow(slideshow, i)" [hidden]="slideshow.isLoading">delete</mat-icon>
+                <div class="spinner-border spinner-border-sm mx-2" role="status" [hidden]="!slideshow.isLoading">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
             </div>
         </div>
     </div>

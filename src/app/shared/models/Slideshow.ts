@@ -7,4 +7,5 @@ export class Slideshow {
     user_id?: number;
     slides?: Slide[];
     created_date?: string;
+    isLoading?: boolean;
 }
