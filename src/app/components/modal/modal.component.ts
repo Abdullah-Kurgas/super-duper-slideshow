@@ -29,7 +29,9 @@ export class ModalComponent implements OnInit {
 
   createSlide() {
     this.loaderService.showLoading();
+
     if (this.data.type === 'slideshow') return this.modal.close(this.slideshow);
+    this.slide.slideshow_id = this.data.slideshow.url;
 
     if (this.image) {
       let formData = new FormData();
@@ -38,12 +40,12 @@ export class ModalComponent implements OnInit {
 
       this.imageService.uploadImage(formData).subscribe((imgData: any) => {
         this.slide.image = imgData.url;
-        this.slide.slideshow_id = this.data.slideshow.id;
 
         this.modal.close(this.slide);
       });
       return;
     }
+
 
     this.modal.close(this.slide);
   }

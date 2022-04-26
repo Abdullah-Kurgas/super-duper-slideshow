@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
+import { Slide } from 'src/app/shared/models/Slide';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
 import { LoaderService } from 'src/app/shared/services/loader.service';
+import { SlideService } from 'src/app/shared/services/slide.service';
 import { SlideshowService } from 'src/app/shared/services/slideshow.service';
 
 @Component({
@@ -15,7 +17,12 @@ export class SlideshowComponent implements OnInit {
 
   slideshow: Slideshow = new Slideshow();
 
-  constructor(public dialog: MatDialog, private route: ActivatedRoute, private slideshowService: SlideshowService, private loaderService: LoaderService) { }
+  constructor(public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private slideshowService: SlideshowService,
+    private loaderService: LoaderService,
+    private slideService: SlideService
+  ) { }
 
   ngOnInit(): void {
     this.slideshowService.getSlideshow(this.route.snapshot.params['id']).subscribe((slideshow: Slideshow) => {
@@ -32,9 +39,13 @@ export class SlideshowComponent implements OnInit {
       }
     });
 
-    newSlide.afterClosed().subscribe((data) => {
-      
-
+    newSlide.afterClosed().subscribe((slide: Slide) => {
+      if (slide) {
+        this.slideService.createSlide(slide).subscribe(res => {
+          this.slideshow.slides?.push(slide);
+          this.loaderService.hideLoading();
+        })
+      }
     })
   }
 }

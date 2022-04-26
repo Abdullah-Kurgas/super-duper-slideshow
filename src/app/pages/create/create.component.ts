@@ -50,6 +50,7 @@ export class CreateComponent implements OnInit {
 
             this.toastr.success('Slideshow successfully created');
             this.router.navigate([`dashboard/slideshow/${slideshow.url}`]);
+            this.loaderService.hideLoading();
           })
         }, err => {
           this.toastr.error(err.error.message);
