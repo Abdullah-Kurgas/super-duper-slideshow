@@ -27,11 +27,4 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
-  changeRoute(route: string) {
-    if (!this.router.url.includes(route)) {
-      this.loaderService.showFullScreenLoading();
-    }
-    this.router.navigate([`dashboard/${route}`]);
-  }
-
 }
