@@ -13,17 +13,23 @@
     }
 }
 
-.slide-content {
-    height: 10rem;
-    min-width: 10rem;
-    border: 1px solid;
-    border-radius: 15px;
+.slides-parent{
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0 1rem;
+    min-height: 15rem;
 
-    img {
-        height: 100%;
+    .slide-content {
+        height: 10rem;
+        min-width: 10rem;
+        border: 1px solid;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1rem;
+    
+        img {
+            height: 100%;
+        }
     }
 }
