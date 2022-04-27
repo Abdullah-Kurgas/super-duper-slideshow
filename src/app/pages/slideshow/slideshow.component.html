@@ -2,11 +2,18 @@
     <div class="slideshow-info">
         <div>
             <span class="fw-bold">Slideshow name</span>
-            <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.name">
+            <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.name"
+                [disabled]="!enableEditing">
+
+            <mat-icon role="button" *ngIf="!enableEditing" (click)="editSlideshow('edit')">edit</mat-icon>
+            <mat-icon role="button" *ngIf="enableEditing" (click)="editSlideshow('save')" [hidden]="slideshow.isLoading">done_all</mat-icon>
+            <div class="spinner-border spinner-border-sm m-0" role="status" [hidden]="!slideshow.isLoading">
+                <span class="visually-hidden">Loading...</span>
+              </div>
         </div>
         <div>
             <span class="fw-bold">Slideshow URL</span>
-            <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.url">
+            <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.url" disabled>
             <span role="button">Copy</span>
         </div>
     </div>

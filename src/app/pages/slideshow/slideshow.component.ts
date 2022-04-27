@@ -18,6 +18,8 @@ export class SlideshowComponent implements OnInit {
 
   slideshow: Slideshow = new Slideshow();
 
+  enableEditing: boolean = false;
+
   constructor(
     public modal: MatDialog,
     private slideshowService: SlideshowService,
@@ -34,6 +36,27 @@ export class SlideshowComponent implements OnInit {
     })
   }
 
+  editSlideshow(type: string) {
+    this.enableEditing = true;
+    if (type === 'edit') return;
+
+    this.slideshow.isLoading = true;
+    this.slideshowService.editSlideshow(this.slideshow).subscribe({
+      next: (res) => {
+        this.enableEditing = false;
+
+        this.toastr.success('Slideshow successfully edited');
+        this.slideshow.isLoading = false;
+      },
+      error: (err) => {
+        this.toastr.error(err.error.message);
+        this.slideshow.isLoading = false;
+      }
+    })
+  }
+
+
+  /* Slide functions */
   createSlide(type: string) {
     let newSlide = this.modal.open(ModalComponent, {
       data: {
@@ -73,6 +96,8 @@ export class SlideshowComponent implements OnInit {
     });
 
     editSlide.afterClosed().subscribe((slide: Slide) => {
+      if (!slide) return;
+
       this.slideService.editSlide(slide).subscribe({
         next: (res: any) => {
           if (res.errno) {
