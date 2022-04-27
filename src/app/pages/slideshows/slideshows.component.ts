@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
 import { LoaderService } from 'src/app/shared/services/loader.service';
@@ -26,6 +27,10 @@ export class SlideshowsComponent implements OnInit {
       this.slideshows = slideshows;
       this.loaderService.hideFullScreenLoading();
     })
+  }
+
+  getRemaining(date: string){
+   return moment().diff(date, 'days');
   }
 
   deleteSlideshow(slideshow: Slideshow, i: number) {

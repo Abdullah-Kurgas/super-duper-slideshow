@@ -6,22 +6,25 @@
             <div>
                 <div>
                     <span><b>Stand {{i + 1}}</b></span>
-                    <span class="mx-3">{{slideshow.slides.length}} Slides</span>
+                    <span class="mx-3">{{slideshow.slides.length}} {{slideshow.slides.length == 1 ? 'Slide' :
+                        'Slides'}}</span>
                 </div>
                 <div class="my-2">
                     <span>{{baseUrl + slideshow.url}}</span>
                     <span role="button" class="mx-3">Copy</span>
                 </div>
                 <div>
-                    <span>Expires in 13 days</span>
+                    <span>Expires in {{getRemaining(slideshow.created_date.split(' ')[0])}}
+                        {{getRemaining(slideshow.created_date.split(' ')[0]) == 1 ? 'day' : 'days'}}</span>
                 </div>
             </div>
             <div class="mx-2 d-flex align-items-center">
                 <mat-icon role="button" [routerLink]="'/dashboard/slideshow/'+ slideshow.url">edit</mat-icon>
-                <mat-icon role="button" class="mx-2 text-danger" (click)="deleteSlideshow(slideshow, i)" [hidden]="slideshow.isLoading">delete</mat-icon>
+                <mat-icon role="button" class="mx-2 text-danger" (click)="deleteSlideshow(slideshow, i)"
+                    [hidden]="slideshow.isLoading">delete</mat-icon>
                 <div class="spinner-border spinner-border-sm mx-2" role="status" [hidden]="!slideshow.isLoading">
                     <span class="visually-hidden">Loading...</span>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
