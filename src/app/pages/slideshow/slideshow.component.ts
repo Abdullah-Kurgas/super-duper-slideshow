@@ -31,7 +31,7 @@ export class SlideshowComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.slideshowService.getSlideshow(this.route.snapshot.params['id']).subscribe((slideshow: Slideshow) => {
+    this.slideshowService.getSlideshow(this.route.snapshot.params['id']).subscribe((slideshow: any) => {
       this.slideshow = slideshow;
       this.loaderService.hideFullScreenLoading();
     })

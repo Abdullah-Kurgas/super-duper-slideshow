@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Slide } from 'src/app/shared/models/Slide';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
-import { Video, Videos } from 'src/app/shared/models/Video';
+import { Videos } from 'src/app/shared/models/Video';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { VideoService } from 'src/app/shared/services/video.service';

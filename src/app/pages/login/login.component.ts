@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
 
   executeLogin() {
-    this.userService.executeLogin(this.user).subscribe((user: User) => {
+    this.userService.executeLogin(this.user).subscribe((user: any) => {
       if (!user.id) return;
 
       if (this.isCheckBoxChecked) {
