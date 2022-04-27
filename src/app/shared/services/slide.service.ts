@@ -14,6 +14,10 @@ export class SlideService {
     return this.http.post(environment.backendUrl + 'createSlide', slide);
   }
 
+  editSlide(slide: Slide) {
+    return this.http.put(environment.backendUrl + 'editSlide', slide);
+  }
+
   deleteSlide(id: number) {
     return this.http.delete(environment.backendUrl + 'deleteSlide/' + id);
   }

@@ -33,7 +33,10 @@ export class ModalComponent implements OnInit {
     this.loaderService.showLoading();
 
     if (this.data.type === 'slideshow') return this.modal.close(this.slideshow);
-    this.slide.slideshow_id = this.data.slideshow.url;
+
+    if (!this.slide.id) {
+      this.slide.slideshow_id = this.data.slideshow.url;
+    }
 
     if (this.image) {
       let formData = new FormData();

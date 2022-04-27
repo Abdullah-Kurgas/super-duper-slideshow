@@ -34,7 +34,7 @@ export class SlideshowComponent implements OnInit {
     })
   }
 
-  openDialog(type: string) {
+  createSlide(type: string) {
     let newSlide = this.modal.open(ModalComponent, {
       data: {
         slideshow: this.slideshow,
@@ -64,12 +64,36 @@ export class SlideshowComponent implements OnInit {
   }
 
   editSlide(slide: Slide) {
-    this.modal.open(ModalComponent, {
+    let editSlide = this.modal.open(ModalComponent, {
       data: {
         slide: slide,
         type: 'slide'
       }
     });
+
+    editSlide.afterClosed().subscribe((slide: Slide) => {
+      this.slideService.editSlide(slide).subscribe({
+        next: (res: any) => {
+          if (res.errno) {
+            this.toastr.error(res.sqlMessage);
+            return;
+          }
+
+          this.slideshow.slides?.forEach((el: Slide) => {
+            if (el.id == slide.id) {
+              el = slide;
+            }
+          });
+
+          this.loaderService.hideLoading();
+          this.toastr.success('Slide successfully updated');
+        },
+        error: (err) => {
+          this.toastr.error(err.error.message);
+          this.loaderService.hideLoading();
+        },
+      })
+    })
 
   }
 

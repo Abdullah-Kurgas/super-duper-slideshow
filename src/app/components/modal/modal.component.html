@@ -1,3 +1,4 @@
+<!-- Slide modal -->
 <div *ngIf="data.type === 'slide'">
     <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
         <h3 class="m-0">Add Slide</h3>
@@ -24,11 +25,12 @@
             <input type="text" name="duration" class="col-7 text-center p-2" required [(ngModel)]="slide.duration">
         </div>
         <div class="d-flex justify-content-end mt-3">
-            <button mat-stroked-button (click)="createSlide()">Create</button>
+            <button mat-stroked-button (click)="createSlide()">{{slide.id ? 'Save' : 'Create'}}</button>
         </div>
     </div>
 </div>
 
+<!-- Slideshow modal -->
 <div *ngIf="data.type === 'slideshow'">
     <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
         <h3 class="m-0">Create Slideshow</h3>
