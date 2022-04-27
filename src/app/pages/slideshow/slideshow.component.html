@@ -6,10 +6,11 @@
                 [disabled]="!enableEditing">
 
             <mat-icon role="button" *ngIf="!enableEditing" (click)="editSlideshow('edit')">edit</mat-icon>
-            <mat-icon role="button" *ngIf="enableEditing" (click)="editSlideshow('save')" [hidden]="slideshow.isLoading">done_all</mat-icon>
+            <mat-icon role="button" *ngIf="enableEditing" (click)="editSlideshow('save')"
+                [hidden]="slideshow.isLoading">done_all</mat-icon>
             <div class="spinner-border spinner-border-sm m-0" role="status" [hidden]="!slideshow.isLoading">
                 <span class="visually-hidden">Loading...</span>
-              </div>
+            </div>
         </div>
         <div>
             <span class="fw-bold">Slideshow URL</span>
@@ -19,6 +20,7 @@
     </div>
 
     <div class="slides-parent scroll-bar">
+
         <div class="d-flex flex-column align-items-center mx-2" *ngFor="let slide of slideshow.slides; let i = index">
             <div class="row">
                 <button mat-icon-button class="col-6 m-2 btn btn-secondary" (click)="editSlide(slide)">
@@ -34,11 +36,16 @@
 
             <div class="slide-content">
                 <h2 *ngIf="slide.website_url" class="m-0">{{slide.website_url}}</h2>
-                <img *ngIf="slide.image" [src]="slide.image" alt="">
+                <img *ngIf="slide.image && !slide.video_url" [src]="slide.image">
+                <div class="video-content" *ngIf="slide.video_url">
+                    <img [src]="slide.image">
+                    <span class="text-center">{{slide.video_url.substring(0 ,slide.video_url.indexOf('&'))}}</span>
+                </div>
             </div>
 
             <input type="text" name="duration" class="w-75 mt-2 text-center" disabled [value]="slide.duration">
         </div>
+
         <div class="create-btn" (click)="createSlide('slide')">
             <i class="bi bi-plus"></i>
         </div>

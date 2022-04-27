@@ -1,9 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { Slide } from 'src/app/shared/models/Slide';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
+import { Video, Videos } from 'src/app/shared/models/Video';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
+import { VideoService } from 'src/app/shared/services/video.service';
 import { environment } from 'src/environments/environment.prod';
 
 @Component({
@@ -22,7 +25,9 @@ export class ModalComponent implements OnInit {
     public modal: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private imageService: ImageService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private videoService: VideoService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +36,6 @@ export class ModalComponent implements OnInit {
 
   createSlide() {
     this.loaderService.showLoading();
-
     if (this.data.type === 'slideshow') return this.modal.close(this.slideshow);
 
     if (!this.slide.id) {
@@ -39,11 +43,7 @@ export class ModalComponent implements OnInit {
     }
 
     if (this.image) {
-      let formData = new FormData();
-      formData.append('file', this.image);
-      formData.append('upload_preset', environment.uploadPreset);
-
-      this.imageService.uploadImage(formData).subscribe((imgData: any) => {
+      this.getImage().subscribe((imgData: any) => {
         this.slide.image = imgData.url;
 
         this.modal.close(this.slide);
@@ -51,6 +51,20 @@ export class ModalComponent implements OnInit {
       return;
     }
 
+    if (this.slide.video_url) {
+      this.getVideo().subscribe({
+        next: (videos: Videos) => {
+          this.slide.image = videos.items![0].snippet.thumbnails.standard.url;
+
+          this.modal.close(this.slide);
+        },
+        error: (err: any) => {
+          this.toastr.error(err.error.message);
+          this.loaderService.hideLoading();
+        }
+      });
+      return;
+    }
 
     this.modal.close(this.slide);
   }
@@ -66,6 +80,21 @@ export class ModalComponent implements OnInit {
       };
     }
     this.uploadedImage = undefined;
+  }
+
+  getImage() {
+    let formData = new FormData();
+    formData.append('file', this.image);
+    formData.append('upload_preset', environment.uploadPreset);
+
+    return this.imageService.uploadImage(formData);
+  }
+
+  getVideo() {
+    let videoId = this.slide.video_url?.
+      substring(this.slide.video_url.indexOf('v=') + 2, this.slide.video_url.indexOf('&'));
+
+    return this.videoService.getVideoById(videoId!);
   }
 
 }
