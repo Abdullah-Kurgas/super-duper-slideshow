@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Slide } from 'src/app/shared/models/Slide';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
@@ -17,11 +18,13 @@ export class SlideshowComponent implements OnInit {
 
   slideshow: Slideshow = new Slideshow();
 
-  constructor(public dialog: MatDialog,
-    private route: ActivatedRoute,
+  constructor(
+    public modal: MatDialog,
     private slideshowService: SlideshowService,
     private loaderService: LoaderService,
-    private slideService: SlideService
+    private slideService: SlideService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +35,7 @@ export class SlideshowComponent implements OnInit {
   }
 
   openDialog(type: string) {
-    let newSlide = this.dialog.open(ModalComponent, {
+    let newSlide = this.modal.open(ModalComponent, {
       data: {
         slideshow: this.slideshow,
         type: type
@@ -41,11 +44,51 @@ export class SlideshowComponent implements OnInit {
 
     newSlide.afterClosed().subscribe((slide: Slide) => {
       if (slide) {
-        this.slideService.createSlide(slide).subscribe(res => {
+        this.slideService.createSlide(slide).subscribe((res: any) => {
+          if (res.errno) {
+            this.toastr.error(res.sqlMessage);
+            return;
+          }
+
+          slide.id = res.insertId;
           this.slideshow.slides?.push(slide);
+
+          this.loaderService.hideLoading();
+          this.toastr.success('Slide successfully created');
+        }, err => {
+          this.toastr.error(err.error.message);
           this.loaderService.hideLoading();
         })
       }
+    })
+  }
+
+  editSlide(slide: Slide) {
+    this.modal.open(ModalComponent, {
+      data: {
+        slide: slide,
+        type: 'slide'
+      }
+    });
+
+  }
+
+  deleteSlide(slide: Slide, i: number) {
+    this.loaderService.showFullScreenLoading();
+
+    this.slideService.deleteSlide(slide.id!).subscribe((res: any) => {
+      if (res.errno) {
+        this.toastr.error(res.sqlMessage);
+        return;
+      }
+
+      this.slideshow.slides?.splice(i, 1);
+
+      this.loaderService.hideFullScreenLoading();
+      this.toastr.success('Slide successfully deleted');
+    }, err => {
+      this.toastr.error(err.error.message);
+      this.loaderService.hideFullScreenLoading();
     })
   }
 }

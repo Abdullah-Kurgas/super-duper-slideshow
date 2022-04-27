@@ -25,7 +25,9 @@ export class ModalComponent implements OnInit {
     private loaderService: LoaderService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.data?.slide ? this.slide = this.data?.slide : null;
+  }
 
   createSlide() {
     this.loaderService.showLoading();

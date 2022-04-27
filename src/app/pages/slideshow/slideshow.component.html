@@ -12,19 +12,19 @@
     </div>
 
     <div class="slides-parent scroll-bar">
-        <div class="d-flex flex-column align-items-center mx-2" *ngFor="let slide of slideshow.slides">
+        <div class="d-flex flex-column align-items-center mx-2" *ngFor="let slide of slideshow.slides; let i = index">
             <div class="row">
-                <button mat-icon-button class="col-6">
+                <button mat-icon-button class="col-6" (click)="editSlide(slide)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button class="col-6">
+                <button mat-icon-button class="col-6" (click)="deleteSlide(slide, i)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </div>
 
             <div class="slide-content">
                 <h2 *ngIf="slide.website_url" class="m-0">{{slide.website_url}}</h2>
-                <img *ngIf="slide.image" [src]="slide.image"alt="">
+                <img *ngIf="slide.image" [src]="slide.image" alt="">
             </div>
 
             <input type="text" name="duration" class="w-75 mt-2 text-center" disabled [value]="slide.duration">

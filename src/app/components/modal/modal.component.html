@@ -4,8 +4,9 @@
         <mat-icon role="button" (click)="modal.close()">close</mat-icon>
     </div>
     <div class="text-center">
-        <div class="file-input" [style]="uploadedImage ? 'background-image: url(' + uploadedImage + ')' : ''">
-            {{!uploadedImage ? 'Click to pick image or drag and drop image here' : ''}}
+        <div class="file-input"
+            [style]="uploadedImage ? 'background-image: url(' + uploadedImage + ')' : slide.image ? 'background-image: url(' + slide?.image + ')' : ''">
+            {{uploadedImage || slide?.image ? '' : 'Click to pick image or drag and drop image here'}}
             <input type="file" name="image" (change)="uploadImage($event)" />
         </div>
         <h2 class="my-2">OR</h2>
