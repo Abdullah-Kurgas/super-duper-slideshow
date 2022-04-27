@@ -47,6 +47,7 @@ export class SlideshowComponent implements OnInit {
         this.slideService.createSlide(slide).subscribe((res: any) => {
           if (res.errno) {
             this.toastr.error(res.sqlMessage);
+            this.loaderService.hideLoading();
             return;
           }
 
@@ -76,6 +77,7 @@ export class SlideshowComponent implements OnInit {
         next: (res: any) => {
           if (res.errno) {
             this.toastr.error(res.sqlMessage);
+            this.loaderService.hideLoading();
             return;
           }
 
@@ -98,21 +100,22 @@ export class SlideshowComponent implements OnInit {
   }
 
   deleteSlide(slide: Slide, i: number) {
-    this.loaderService.showFullScreenLoading();
+    slide.isLoading = true;
 
     this.slideService.deleteSlide(slide.id!).subscribe((res: any) => {
       if (res.errno) {
         this.toastr.error(res.sqlMessage);
+        slide.isLoading = false;
         return;
       }
 
       this.slideshow.slides?.splice(i, 1);
 
-      this.loaderService.hideFullScreenLoading();
+      slide.isLoading = false;
       this.toastr.success('Slide successfully deleted');
     }, err => {
       this.toastr.error(err.error.message);
-      this.loaderService.hideFullScreenLoading();
+      slide.isLoading = false;
     })
   }
 }

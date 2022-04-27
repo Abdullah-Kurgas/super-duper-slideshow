@@ -5,4 +5,5 @@ export class Slide {
     website_url?: string
     duration?: string;
     slideshow_id?: number;
+    isLoading?: boolean;
 }

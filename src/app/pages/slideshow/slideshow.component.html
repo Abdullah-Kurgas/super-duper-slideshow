@@ -14,11 +14,14 @@
     <div class="slides-parent scroll-bar">
         <div class="d-flex flex-column align-items-center mx-2" *ngFor="let slide of slideshow.slides; let i = index">
             <div class="row">
-                <button mat-icon-button class="col-6" (click)="editSlide(slide)">
+                <button mat-icon-button class="col-6 m-2 btn btn-secondary" (click)="editSlide(slide)">
                     <mat-icon>edit</mat-icon>
                 </button>
-                <button mat-icon-button class="col-6" (click)="deleteSlide(slide, i)">
-                    <mat-icon>delete</mat-icon>
+                <button mat-icon-button class="col-6 m-2 btn btn-danger" (click)="deleteSlide(slide, i)">
+                    <mat-icon [hidden]="slide.isLoading">delete</mat-icon>
+                    <div class="spinner-border spinner-border-sm" role="status" [hidden]="!slide.isLoading">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                 </button>
             </div>
 

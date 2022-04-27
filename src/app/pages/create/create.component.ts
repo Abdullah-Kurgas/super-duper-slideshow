@@ -29,7 +29,7 @@ export class CreateComponent implements OnInit {
     }, 0)
   }
 
-  openDialog(type: string) {
+  createSlideshow(type: string) {
     let slideshowModal = this.dialog.open(ModalComponent, {
       data: {
         type: type
@@ -45,6 +45,7 @@ export class CreateComponent implements OnInit {
           this.slideshowService.createSlideshow(slideshow).subscribe((res: any) => {
             if (res.errno) {
               this.toastr.error(res.sqlMessage);
+              this.loaderService.hideLoading();
               return;
             }
 
