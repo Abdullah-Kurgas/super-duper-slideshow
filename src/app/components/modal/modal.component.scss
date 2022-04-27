@@ -34,10 +34,16 @@
         right: 0;
         min-width: 100%;
         min-height: 100%;
-        filter: alpha(opacity=0);
         opacity: 0;
         background: white;
         cursor: inherit;
-        border-radius: 15   px;
+        border-radius: 15px;
     }
+}
+
+.disabled{
+    background-color: #efefef4d;
+    color: #979797;
+    border-color: #7676764d;
+    
 }

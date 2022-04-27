@@ -97,4 +97,8 @@ export class ModalComponent implements OnInit {
     return this.videoService.getVideoById(videoId!);
   }
 
+  disableField(filed1: any, filed2: any){
+    return filed1 || filed2;
+  }
+
 }

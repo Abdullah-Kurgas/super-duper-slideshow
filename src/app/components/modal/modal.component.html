@@ -5,24 +5,26 @@
         <mat-icon role="button" (click)="modal.close()">close</mat-icon>
     </div>
     <div class="text-center">
-        <div class="file-input"
+        <div class="file-input" [class]="disableField(slide.video_url, slide.website_url) ? 'disabled' : ''"
             [style]="uploadedImage ? 'background-image: url(' + uploadedImage + ')' : slide.image ? 'background-image: url(' + slide?.image + ')' : ''">
             {{uploadedImage || slide?.image ? '' : 'Click to pick image or drag and drop image here'}}
-            <input type="file" name="image" (change)="uploadImage($event)" />
+            <input type="file" name="image" (change)="uploadImage($event)"
+                [disabled]="disableField(slide.video_url, slide.website_url)" />
         </div>
         <h2 class="my-2">OR</h2>
         <div>
             <input type="text" name="video_url" class="sl-input" placeholder="Paste YT video URL here"
-                [(ngModel)]="slide.video_url">
+                [(ngModel)]="slide.video_url" [disabled]="disableField(slide.website_url, (uploadedImage || slide.image))">
         </div>
         <h2 class="my-2">OR</h2>
         <div>
             <input type="text" name="website_url" class="sl-input" placeholder="Paste website URL here"
-                [(ngModel)]="slide.website_url">
+                [(ngModel)]="slide.website_url" [disabled]="disableField(slide.video_url, (uploadedImage || slide.image))">
         </div>
         <div class="row align-items-center mt-4 mx-1">
             <h4 class="col-5 m-0 p-0 text-start">Slide duration</h4>
-            <input type="text" name="duration" class="col-7 text-center p-2" required [(ngModel)]="slide.duration">
+            <input type="text" name="duration" class="col-7 text-center p-2" [(ngModel)]="slide.duration"
+                [disabled]="disableField(slide.video_url, undefined)">
         </div>
         <div class="d-flex justify-content-end mt-3">
             <button mat-stroked-button (click)="createSlide()">{{slide.id ? 'Save' : 'Create'}}</button>
