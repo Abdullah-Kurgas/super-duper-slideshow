@@ -21,7 +21,7 @@ export class SlideshowComponent implements OnInit {
 
   enableEditing: boolean = false;
 
-  utils = Utils;
+  utils = Utils
 
   constructor(
     public modal: MatDialog,
@@ -109,11 +109,8 @@ export class SlideshowComponent implements OnInit {
             return;
           }
 
-          this.slideshow.slides?.forEach((el: Slide) => {
-            if (el.id == slide.id) {
-              el = slide;
-            }
-          });
+          const index = this.slideshow.slides.findIndex((el) => el.id === slide.id);
+          this.slideshow.slides[index] = slide;
 
           this.loaderService.hideLoading();
           this.toastr.success('Slide successfully updated');
