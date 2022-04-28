@@ -10,7 +10,7 @@ export default class Utils {
             m = time.substring((!time.includes('H') ? time.indexOf('T') : time.indexOf('H')) + 1, time.indexOf('M'));
             s = time.substring(time.indexOf('M') + 1, time.indexOf('S'));
 
-            return (h ? ((h?.toString().length == 1 ? '0' + h : h) + ' : ') : '') + (m.toString().length == 1 ? '0' + m : m) + ' : ' + s;
+            return (h ? ((h?.toString().length == 1 ? '0' + h : h) + ' : ') : '') + (m.toString().length == 1 ? '0' + m : m) + ' : ' + (s.toString().length == 1 ? '0' + s : s);
         }
 
         if (+time > 60) {
