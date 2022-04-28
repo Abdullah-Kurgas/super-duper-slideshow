@@ -1,0 +1,20 @@
+<div class="show" #show>
+
+    <div class="btn btn-dark text-white duration text-center">{{slideDuration}}</div>
+
+    <div class="slide" *ngFor="let slide of slides">
+        <div class="image" *ngIf="slide.image && !slide.video_url" [style]="'background:url('+slide.image+')'"></div>
+        <iframe *ngIf="slide.website_url" [src]="sanitizer.bypassSecurityTrustResourceUrl(slide.website_url)"
+            frameborder="0"></iframe>
+        <iframe *ngIf="slide.video_url"
+            [src]="sanitizer.bypassSecurityTrustResourceUrl(slide.video_url.replace('watch?v=', 'embed/').substring(0 ,slide.video_url.replace('watch?v=', 'embed/').indexOf('&')))"
+            autoplay frameborder="0"></iframe>
+    </div>
+
+    <div class="next" *ngIf="slideNumber < slides.length-1" (click)="changeSlide('next', show)">
+
+    </div>
+    <div class="prev" *ngIf="slideNumber > 0" (click)="changeSlide('prev', show)">
+
+    </div>
+</div>

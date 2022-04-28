@@ -1,6 +1,6 @@
 export default class Utils {
 
-    static convertTime(time: string) {
+    static convertTime(time: string, type: string) {
         let h;
         let m;
         let s;
@@ -10,8 +10,19 @@ export default class Utils {
             m = time.substring((!time.includes('H') ? time.indexOf('T') : time.indexOf('H')) + 1, time.indexOf('M'));
             s = time.substring(time.indexOf('M') + 1, time.indexOf('S'));
 
-            return (h ? ((h?.toString().length == 1 ? '0' + h : h) + ' : ') : '') + (m.toString().length == 1 ? '0' + m : m) + ' : ' + (s.toString().length == 1 ? '0' + s : s);
+
+            if (type === 'fullTime')
+                return (h ? ((h?.toString().length == 1 ? '0' + h : h) + ' : ') : '') + (m.toString().length == 1 ? '0' + m : m) + ' : ' + (s.toString().length == 1 ? '0' + s : s);
+
+            h = +h * 3600;
+            m = +m * 60;
+            return +h + +m + +s;
+
         }
+
+        if (type === 'seconds')
+            return time;
+
 
         if (+time > 60) {
             if (+time >= 3600) {

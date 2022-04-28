@@ -10,6 +10,10 @@ export class SlideService {
 
   constructor(private http: HttpClient) { }
 
+  getSlides(id: string) {
+    return this.http.get(environment.backendUrl + 'getSlides/' + id);
+  }
+
   createSlide(slide: Slide) {
     return this.http.post(environment.backendUrl + 'createSlide', slide);
   }
