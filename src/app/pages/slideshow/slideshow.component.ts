@@ -5,10 +5,10 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Slide } from 'src/app/shared/models/Slide';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
-import { Video } from 'src/app/shared/models/Video';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { SlideService } from 'src/app/shared/services/slide.service';
 import { SlideshowService } from 'src/app/shared/services/slideshow.service';
+import Utils from 'src/app/shared/Utils';
 
 @Component({
   selector: 'app-slideshow',
@@ -20,6 +20,8 @@ export class SlideshowComponent implements OnInit {
   slideshow: Slideshow = new Slideshow();
 
   enableEditing: boolean = false;
+
+  utils = Utils;
 
   constructor(
     public modal: MatDialog,

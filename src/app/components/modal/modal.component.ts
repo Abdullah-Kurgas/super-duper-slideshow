@@ -31,7 +31,7 @@ export class ModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.data?.slide ? this.slide = this.data?.slide : null;
+    this.data?.slide ? this.slide = {...this.data?.slide} : null;
   }
 
   createSlide() {
@@ -55,6 +55,7 @@ export class ModalComponent implements OnInit {
       this.getVideo().subscribe({
         next: (videos: Videos) => {
           this.slide.image = videos.items![0].snippet.thumbnails.standard.url;
+          this.slide.duration = videos.items![0].contentDetails.duration;
 
           this.modal.close(this.slide);
         },
