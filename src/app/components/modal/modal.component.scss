@@ -1,7 +1,5 @@
-
-
-::ng-deep{
-    .mat-dialog-container{
+::ng-deep {
+    .mat-dialog-container {
         padding-top: 0;
     }
 }
@@ -41,9 +39,9 @@
     }
 }
 
-.disabled{
+.disabled {
     background-color: #efefef4d;
     color: #979797;
     border-color: #7676764d;
-    
+
 }

@@ -5,11 +5,11 @@
         <mat-icon role="button" (click)="modal.close()">close</mat-icon>
     </div>
     <div class="text-center">
-        <div class="file-input" [class]="disableField(slide.video_url, slide.website_url) ? 'disabled' : ''"
+        <div class="file-input" [class]="disableField(slide.website_url, slide.video_url) ? 'disabled' : ''"
             [style]="uploadedImage ? 'background-image: url(' + uploadedImage + ')' : slide.image ? 'background-image: url(' + slide?.image + ')' : ''">
             {{uploadedImage || slide?.image ? '' : 'Click to pick image or drag and drop image here'}}
             <input type="file" name="image" (change)="uploadImage($event)"
-                [disabled]="disableField(slide.video_url, slide.website_url)" />
+                [disabled]="disableField(slide.website_url, slide.video_url)" />
         </div>
         <h2 class="my-2">OR</h2>
         <div>
