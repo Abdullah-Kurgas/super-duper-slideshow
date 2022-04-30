@@ -22,9 +22,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ShowComponent } from './pages/show/show.component';
+import { urlSanitizerPipe } from './shared/pipes/urlSanitizer.pipe';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, ModalComponent, LoaderComponent, ShowComponent],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, ModalComponent, LoaderComponent, ShowComponent, urlSanitizerPipe],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,

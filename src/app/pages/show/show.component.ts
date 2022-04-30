@@ -1,5 +1,5 @@
 import { Target } from '@angular/compiler';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +18,8 @@ export class ShowComponent implements OnInit {
   slides!: Slide[];
   slideNumber: number = 0;
   slideDuration!: number;
+  duration: number = 0;
+  isPlaying: boolean = true;
 
   utils = Utils;
 
@@ -42,6 +44,7 @@ export class ShowComponent implements OnInit {
 
         this.slideDuration = Number(this.utils.convertTime(this.slides[this.slideNumber].duration, 'seconds'));
         this.loaderService.hideFullScreenLoading();
+        this.startTimer(false, 1000);
       },
       error: (err) => {
         this.loaderService.hideFullScreenLoading();
@@ -59,8 +62,27 @@ export class ShowComponent implements OnInit {
       this.slideNumber--;
     }
 
+    this.duration = 0;
     this.slideDuration = Number(this.utils.convertTime(this.slides[this.slideNumber].duration, 'seconds'));
     show.style = `margin-left:-${this.slideNumber}00vw`;
+    this.startTimer(true, 1000);
+  }
+
+  playPause() {
+    this.isPlaying = !this.isPlaying;
+    this.startTimer(false, this.isPlaying ? 1000 : 0);
+  }
+
+  startTimer(isClicked: boolean, seconds: number) {
+    var timer = setInterval(() => {
+      if (!this.isPlaying) {
+        clearInterval(timer);
+        return;
+      };
+      this.duration++;
+    }, seconds);
+
+    if (isClicked) clearInterval(timer);
   }
 
 }

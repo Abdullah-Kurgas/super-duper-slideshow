@@ -1,20 +1,29 @@
 <div class="show" #show>
 
-    <div class="btn btn-dark text-white duration text-center">{{slideDuration}}</div>
-
     <div class="slide" *ngFor="let slide of slides">
         <div class="image" *ngIf="slide.image && !slide.video_url" [style]="'background:url('+slide.image+')'"></div>
-        <iframe *ngIf="slide.website_url" [src]="sanitizer.bypassSecurityTrustResourceUrl(slide.website_url)"
-            frameborder="0"></iframe>
+        <iframe *ngIf="slide.website_url" [src]="slide.website_url | urlSanitizer" frameborder="0"></iframe>
         <iframe *ngIf="slide.video_url"
-            [src]="sanitizer.bypassSecurityTrustResourceUrl(slide.video_url.replace('watch?v=', 'embed/').substring(0 ,slide.video_url.replace('watch?v=', 'embed/').indexOf('&')))"
+            [src]="(slide.video_url.replace('watch?v=', 'embed/').substring(0 ,slide.video_url.replace('watch?v=', 'embed/').indexOf('&'))) | urlSanitizer"
             autoplay frameborder="0"></iframe>
     </div>
 
-    <div class="next" *ngIf="slideNumber < slides.length-1" (click)="changeSlide('next', show)">
+    <div class="controller">
+        <i class="bi bi-chevron-right next" *ngIf="slideNumber < slides?.length! - 1"
+            (click)="changeSlide('next', show)"></i>
+        <div>{{duration +'/'+slideDuration}}</div>
+        <div class="play-pause" (click)="playPause()">
+            <i class="bi bi-pause" *ngIf="isPlaying"></i>
+            <i class="bi bi-play-fill" *ngIf="!isPlaying"></i>
+        </div>
+        <i class="bi bi-chevron-left prev" *ngIf="slideNumber > 0" (click)="changeSlide('prev', show)"></i>
 
+        <div class="progress duration">
+            <div class="progress-bar" role="progressbar" [style]="'width:'+ duration +'%'"
+                [attr.aria-valuenow]="duration" aria-valuemin="0" [attr.aria-valuemax]="slideDuration"></div>
+        </div>
     </div>
-    <div class="prev" *ngIf="slideNumber > 0" (click)="changeSlide('prev', show)">
 
-    </div>
+
+
 </div>
