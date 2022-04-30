@@ -18,8 +18,7 @@
         <i class="bi bi-chevron-left prev" *ngIf="slideNumber > 0" (click)="changeSlide('prev')"></i>
 
         <div class="progress duration">
-            <div class="progress-bar" role="progressbar" [style]="'width:'+ duration +'%'"
-                [attr.aria-valuenow]="duration" aria-valuemin="0" [attr.aria-valuemax]="slideDuration"></div>
+            <div class="progress-bar" role="progressbar" [style]="'width:'+ duration * (100 / slideDuration) +'%'"></div>
         </div>
     </div>
 
