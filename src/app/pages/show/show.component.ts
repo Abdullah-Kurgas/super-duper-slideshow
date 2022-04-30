@@ -53,7 +53,7 @@ export class ShowComponent implements OnInit {
     })
   }
 
-  changeSlide(type: string, show: any) {
+  changeSlide(type: string) {
     if (type == 'next') {
       if (this.slides.length - 1 == this.slideNumber) return;
       this.slideNumber++;
@@ -64,13 +64,13 @@ export class ShowComponent implements OnInit {
 
     this.duration = 0;
     this.slideDuration = Number(this.utils.convertTime(this.slides[this.slideNumber].duration, 'seconds'));
-    show.style = `margin-left:-${this.slideNumber}00vw`;
+
     this.startTimer(true, 1000);
   }
 
   playPause() {
     this.isPlaying = !this.isPlaying;
-    this.startTimer(false, this.isPlaying ? 1000 : 0);
+    this.startTimer(false, 1000);
   }
 
   startTimer(isClicked: boolean, seconds: number) {
@@ -79,8 +79,13 @@ export class ShowComponent implements OnInit {
         clearInterval(timer);
         return;
       };
+      if (this.duration === this.slideDuration) {
+        this.changeSlide('next')
+        return;
+      }
       this.duration++;
     }, seconds);
+
 
     if (isClicked) clearInterval(timer);
   }

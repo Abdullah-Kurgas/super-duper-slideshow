@@ -1,4 +1,4 @@
-<div class="show" #show>
+<div class="show" [style]="'margin-left:-'+ slideNumber +'00vw'">
 
     <div class="slide" *ngFor="let slide of slides">
         <div class="image" *ngIf="slide.image && !slide.video_url" [style]="'background:url('+slide.image+')'"></div>
@@ -9,14 +9,13 @@
     </div>
 
     <div class="controller">
-        <i class="bi bi-chevron-right next" *ngIf="slideNumber < slides?.length! - 1"
-            (click)="changeSlide('next', show)"></i>
+        <i class="bi bi-chevron-right next" *ngIf="slideNumber < slides?.length! - 1" (click)="changeSlide('next')"></i>
         <div>{{duration +'/'+slideDuration}}</div>
         <div class="play-pause" (click)="playPause()">
             <i class="bi bi-pause" *ngIf="isPlaying"></i>
             <i class="bi bi-play-fill" *ngIf="!isPlaying"></i>
         </div>
-        <i class="bi bi-chevron-left prev" *ngIf="slideNumber > 0" (click)="changeSlide('prev', show)"></i>
+        <i class="bi bi-chevron-left prev" *ngIf="slideNumber > 0" (click)="changeSlide('prev')"></i>
 
         <div class="progress duration">
             <div class="progress-bar" role="progressbar" [style]="'width:'+ duration +'%'"

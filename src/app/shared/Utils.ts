@@ -31,9 +31,9 @@ export default class Utils {
             m = !h ? (+time / 60).toFixed() : ((+time - (+h * 3600)) - 60) > 0 ? ((+time - (+h * 3600)) - 60) : 0;
             s = !h ? +time - (+m * 60) : (+time - (+h * 3600)) > 60 ? ((+time - (+h * 3600)) - 60) : (+time - (+h * 3600));
 
-            return (h ? ((h?.toString().length == 1 ? '0' + h : h) + ' : ') : '') + (m.toString().length == 1 ? '0' + m : m) + ' : ' + (s.toString().length == 1 ? '0' + s : s)
+            return (h ? ((h?.toString().length == 1 ? '0' + h : h) + ' : ') : '') + (m.toString().length == 1 ? '0' + m : m) + ' : ' + (s.toString().length == 1 ? '0' + s : s);
         }
 
-        return '00 : ' + time;
+        return '00 : ' + (time.toString().length == 1 ? '0' + time : time);
     }
 }
