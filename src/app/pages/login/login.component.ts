@@ -11,12 +11,15 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class LoginComponent implements OnInit {
   user: User = new User();
+
   isCheckBoxChecked: boolean = false;
+  isLoading: boolean = false;
+  errMessage!: string;
 
   constructor(
     private userService: UserService,
      private router: Router,
-     private loaderService: LoaderService
+     public loaderService: LoaderService
      ) { }
 
   ngOnInit(): void {
@@ -26,15 +29,23 @@ export class LoginComponent implements OnInit {
    }
 
   executeLogin() {
-    this.userService.executeLogin(this.user).subscribe((user: any) => {
-      if (!user.id) return;
+    this.isLoading = true;
+
+    this.userService.executeLogin(this.user).subscribe((response: any) => {
+      if (!response.id) {
+        this.errMessage = response.msg;
+        this.isLoading = false;
+        return
+      };
 
       if (this.isCheckBoxChecked) {
-        localStorage.setItem('userData', JSON.stringify(user));
+        localStorage.setItem('userData', JSON.stringify(response));
       } else {
-        sessionStorage.setItem('userData', JSON.stringify(user));
+        sessionStorage.setItem('userData', JSON.stringify(response));
       }
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['dashboard']).then(()=>{
+        this.isLoading = false;
+      });
     })
   }
 }
