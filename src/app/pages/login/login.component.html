@@ -7,7 +7,7 @@
 
     <div class="my-3">
       <label>Username</label>
-      <input class="w-100 p-2 border-1 rounded-1" type="text" name="username" #username="ngModel" required
+      <input class="w-100 p-2 border-1 rounded-1" type="text" autocomplete="username" name="username" #username="ngModel" required
         [(ngModel)]="user.username" placeholder="Username"
         [ngClass]="username.invalid && username.touched && username.model == '' ?  'border-danger' : ''" />
       <p class="text-danger" *ngIf="username.invalid && username.touched && username.model == ''">Username is required!
@@ -15,7 +15,7 @@
     </div>
     <div class="my-3">
       <label>Password</label>
-      <input class="w-100 p-2 border-1 rounded-1" type="password" name="password" #password="ngModel" required
+      <input class="w-100 p-2 border-1 rounded-1" autocomplete="current-password" type="password" name="password" #password="ngModel" required
         [(ngModel)]="user.password" placeholder="Password"
         [ngClass]="password.invalid && password.touched && password.model == '' ? 'border-danger' : ''" />
       <p class="text-danger" *ngIf="password.invalid && password.touched && password.model == ''">Password is required!

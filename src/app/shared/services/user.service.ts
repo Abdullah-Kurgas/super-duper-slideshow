@@ -14,4 +14,8 @@ export class UserService {
   executeLogin(user: User) {
     return this.http.put(environment.backendUrl + 'executeLogin', user);
   }
+
+  executeSignUp(user: User) {
+    return this.http.post(environment.backendUrl + 'executeSignUp', user);
+  }
 }
