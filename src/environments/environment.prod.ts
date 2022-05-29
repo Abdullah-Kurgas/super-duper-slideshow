@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  backendUrl: 'http://localhost:3000/',
+  backendUrl: 'https://super-duper-slideshow-back.herokuapp.com/',
   cloudName: 'dzbizu8pe',
   uploadPreset: 'awhrycmx',
   ytBaseUrl: 'https://www.googleapis.com/youtube/v3/',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/User';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -12,9 +13,17 @@ export class LoginComponent implements OnInit {
   user: User = new User();
   isCheckBoxChecked: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(
+    private userService: UserService,
+     private router: Router,
+     private loaderService: LoaderService
+     ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    setTimeout(()=>{
+      this.loaderService.hideFullScreenLoading();
+    })
+   }
 
   executeLogin() {
     this.userService.executeLogin(this.user).subscribe((user: any) => {
