@@ -7,7 +7,7 @@ import { Videos } from 'src/app/shared/models/Video';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { VideoService } from 'src/app/shared/services/video.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-modal',

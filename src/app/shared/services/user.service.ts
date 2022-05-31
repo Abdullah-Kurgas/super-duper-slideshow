@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 
 @Injectable({
@@ -13,5 +13,9 @@ export class UserService {
 
   executeLogin(user: User) {
     return this.http.put(environment.backendUrl + 'executeLogin', user);
+  }
+
+  executeSignUp(user: User) {
+    return this.http.post(environment.backendUrl + 'executeSignUp', user);
   }
 }

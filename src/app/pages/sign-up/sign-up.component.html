@@ -1,1 +1,59 @@
-<p>sign-up works!</p>
+<div class="row h-100 w-100 m-0">
+    <form class="m-auto px-5 col-12 col-sm-7 col-md-6 col-lg-5" #loginForm="ngForm">
+        <!-- <div class="mb-3 p-2 rounded-2 bg-danger" *ngIf="errMessage && !isLoading">
+        <p class="alert-title"><b>Error!</b></p>
+        <p class="ps-2">{{errMessage}}</p>
+      </div> -->
+
+        <div class="my-3">
+            <label>Email</label>
+            <input class="w-100 p-2 border-1 rounded-1" type="text" autocomplete="email" name="email" #email="ngModel"
+                required [(ngModel)]="user.email" placeholder="Email"
+                [ngClass]="email.invalid && email.touched && email.model == '' ?  'border-danger' : ''" />
+            <p class="text-danger" *ngIf="email.invalid && email.touched && email.model == ''">Email is required!
+            </p>
+        </div>
+
+        <div class="my-3">
+            <label>First Name</label>
+            <input class="w-100 p-2 border-1 rounded-1" type="text" autocomplete="family-name" name="firstName"
+                #firstName="ngModel" [(ngModel)]="user.firstName" placeholder="First Name" />
+        </div>
+
+        <div class="my-3">
+            <label>Last Name</label>
+            <input class="w-100 p-2 border-1 rounded-1" type="text" autocomplete="cc-family-name" name="lastName"
+                #lastName="ngModel" [(ngModel)]="user.lastName" placeholder="Last Name" />
+        </div>
+
+        <div class="my-3">
+            <label>Username</label>
+            <input class="w-100 p-2 border-1 rounded-1" type="text" autocomplete="username" name="username"
+                #username="ngModel" required [(ngModel)]="user.username" placeholder="Username"
+                [ngClass]="username.invalid && username.touched && username.model == '' ?  'border-danger' : ''" />
+            <p class="text-danger" *ngIf="username.invalid && username.touched && username.model == ''">Username is
+                required!
+            </p>
+        </div>
+
+        <div class="my-3">
+            <label>Password</label>
+            <input class="w-100 p-2 border-1 rounded-1" type="password" autocomplete="new-password" name="password"
+                #password="ngModel" required [(ngModel)]="user.password" placeholder="Password"
+                [ngClass]="password.invalid && password.touched && password.model == '' ? 'border-danger' : ''" />
+            <p class="text-danger" *ngIf="password.invalid && password.touched && password.model == ''">Password is
+                required!
+            </p>
+        </div>
+
+        <div class="text-center mx-4">
+            <button mat-stroked-button class="px-4 w-100" [disabled]="!loginForm.valid" (click)="executeSignUp()">
+                <span *ngIf="!isLoading">Sign Up</span>
+                <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </button>
+            <button mat-button class="my-1 w-100 bg-light" [routerLink]="'/login'">Return to Login</button>
+        </div>
+    </form>
+</div>
