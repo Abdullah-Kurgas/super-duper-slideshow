@@ -1,5 +1,9 @@
 export default class Utils {
 
+    static getDataFromLocalOrSession(key: string){
+        return JSON.parse((localStorage.getItem(key) || sessionStorage.getItem(key))!);
+    }
+
     static convertTime(time: string, type: string) {
         let h;
         let m;

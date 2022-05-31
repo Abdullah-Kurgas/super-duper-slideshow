@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/User';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import Utils from 'src/app/shared/Utils';
 
 @Component({
   selector: 'app-login',
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('userData', JSON.stringify(response));
       }
       this.router.navigate(['dashboard']).then(()=>{
+        this.userService.userData = Utils.getDataFromLocalOrSession('userData');
         this.isLoading = false;
       });
     })
