@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
+import { ApiService } from 'src/app/shared/services/api.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { SlideshowService } from 'src/app/shared/services/slideshow.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -20,7 +20,7 @@ export class CreateComponent implements OnInit {
     private userService: UserService,
     private loaderService: LoaderService,
     private router: Router,
-    private toastr: ToastrService
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -44,17 +44,17 @@ export class CreateComponent implements OnInit {
 
           this.slideshowService.createSlideshow(slideshow).subscribe((res: any) => {
             if (res.errno) {
-              this.toastr.error(res.sqlMessage);
+              this.apiService.showToasrtMsg('error', res.sqlMessage);
               this.loaderService.hideLoading();
               return;
             }
 
-            this.toastr.success('Slideshow successfully created');
+            this.apiService.showToasrtMsg('success', res.msg);
             this.router.navigate([`dashboard/slideshow/${slideshow.url}`]);
             this.loaderService.hideLoading();
           })
         }, err => {
-          this.toastr.error(err.error.message);
+          this.apiService.showToasrtMsg('error', err.error.message);
         })
       }
 

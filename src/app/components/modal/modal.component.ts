@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
 import { Slide } from 'src/app/shared/models/Slide';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
 import { Videos } from 'src/app/shared/models/Video';
+import { ApiService } from 'src/app/shared/services/api.service';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { VideoService } from 'src/app/shared/services/video.service';
@@ -27,7 +27,7 @@ export class ModalComponent implements OnInit {
     private imageService: ImageService,
     private loaderService: LoaderService,
     private videoService: VideoService,
-    private toastr: ToastrService
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -60,7 +60,7 @@ export class ModalComponent implements OnInit {
           this.modal.close(this.slide);
         },
         error: (err: any) => {
-          this.toastr.error(err.error.message);
+          this.apiService.showToasrtMsg('error', err.error.message);
           this.loaderService.hideLoading();
         }
       });

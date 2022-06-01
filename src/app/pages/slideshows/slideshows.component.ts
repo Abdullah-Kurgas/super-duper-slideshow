@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
+import { ApiService } from 'src/app/shared/services/api.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { SlideshowService } from 'src/app/shared/services/slideshow.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -19,7 +19,7 @@ export class SlideshowsComponent implements OnInit {
   constructor(private slideshowService: SlideshowService,
     private userService: UserService,
     private loaderService: LoaderService,
-    private toastr: ToastrService
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -36,12 +36,13 @@ export class SlideshowsComponent implements OnInit {
   deleteSlideshow(slideshow: Slideshow, i: number) {
     slideshow.isLoading = true;
 
-    this.slideshowService.deleteSlideshow(slideshow.url).subscribe(res => {
+    this.slideshowService.deleteSlideshow(slideshow.url).subscribe((res: any) => {
       this.slideshows.splice(i, 1);
-      this.toastr.success('Slideshow successfully deleted');
+
+      this.apiService.showToasrtMsg('success', res.msg);
       slideshow.isLoading = false;
     }, (err) => {
-      this.toastr.error(err.error.message);
+      this.apiService.showToasrtMsg('error', err.error.message);
       slideshow.isLoading = false;
     })
   }

@@ -2,8 +2,8 @@ import { Target } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Slide } from 'src/app/shared/models/Slide';
+import { ApiService } from 'src/app/shared/services/api.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { SlideService } from 'src/app/shared/services/slide.service';
 import Utils from 'src/app/shared/Utils';
@@ -27,7 +27,7 @@ export class ShowComponent implements OnInit {
     private slideService: SlideService,
     private loaderService: LoaderService,
     private route: ActivatedRoute,
-    private toastr: ToastrService,
+    private apiService: ApiService,
     public sanitizer: DomSanitizer
   ) { }
 
@@ -35,7 +35,7 @@ export class ShowComponent implements OnInit {
     this.slideService.getSlides(this.route.snapshot.params['id']).subscribe({
       next: (res: any) => {
         if (res.errno) {
-          this.toastr.error(res.sqlMessage);
+          this.apiService.showToasrtMsg('error', res.sqlMessage);
           this.loaderService.hideLoading();
           return;
         }
@@ -48,7 +48,7 @@ export class ShowComponent implements OnInit {
       },
       error: (err) => {
         this.loaderService.hideFullScreenLoading();
-        this.toastr.error(err.error.message);
+        this.apiService.showToasrtMsg('error', err.error.message);
       }
     })
   }
