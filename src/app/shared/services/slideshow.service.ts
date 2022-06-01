@@ -30,7 +30,7 @@ export class SlideshowService {
     return this.http.put(environment.backendUrl + 'editSlideshow', slideshow);
   }
 
-  deleteSlideshow(id: number) {
-    return this.http.delete(environment.backendUrl + 'deleteSlideshow/' + id);
+  deleteSlideshow(url: string) {
+    return this.http.delete(environment.backendUrl + 'deleteSlideshow/' + url);
   }
 }

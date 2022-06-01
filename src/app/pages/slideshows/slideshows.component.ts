@@ -36,7 +36,7 @@ export class SlideshowsComponent implements OnInit {
   deleteSlideshow(slideshow: Slideshow, i: number) {
     slideshow.isLoading = true;
 
-    this.slideshowService.deleteSlideshow(slideshow.id!).subscribe(res => {
+    this.slideshowService.deleteSlideshow(slideshow.url).subscribe(res => {
       this.slideshows.splice(i, 1);
       this.toastr.success('Slideshow successfully deleted');
       slideshow.isLoading = false;
