@@ -41,7 +41,16 @@ export class SlideshowComponent implements OnInit {
       },
       error: (err: Error) => {
         this.loaderService.hideFullScreenLoading();
-        this.apiService.showToasrtMsg('error', err.message);
+        this.modal.open(ModalComponent, {
+          data: {
+            type: 'serverError'
+          }
+        }).afterClosed()
+          .subscribe(() => {
+            this.apiService.showToasrtMsg('success', 'Server has been successfully restarted');
+            this.loaderService.hideLoading();
+            this.ngOnInit();
+          });
         this.serverError = true;
       }
     })

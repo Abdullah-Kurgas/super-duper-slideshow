@@ -6,12 +6,15 @@
         <iframe *ngIf="slide.video_url"
             [src]="(slide.video_url.replace('watch?v=', 'embed/').substring(0 ,slide.video_url.replace('watch?v=', 'embed/').indexOf('&'))) | urlSanitizer"
             autoplay frameborder="0"></iframe>
-        <div *ngIf="slideNumber == slides.length" class="w-100 h-100 bg-dark">
+    </div>
+
+    <div class="slide" *ngIf="slides?.length == this.slideNumber">
+        <div class="w-100 h-100 bg-dark" >
 
         </div>
     </div>
 
-    <div class="controller">
+    <div class="controller" *ngIf="slides?.length !== this.slideNumber">
         <i class="bi bi-chevron-right next" *ngIf="slideNumber < slides?.length! - 1" (click)="changeSlide('next')"></i>
         <div>{{duration +'/'+slideDuration}}</div>
         <div class="play-pause" (click)="playPause()">

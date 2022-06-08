@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Slideshow } from 'src/app/shared/models/Slideshow';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
@@ -20,7 +22,8 @@ export class SlideshowsComponent implements OnInit {
     private slideshowService: SlideshowService,
     private loaderService: LoaderService,
     private userService: UserService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private modal: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -30,8 +33,18 @@ export class SlideshowsComponent implements OnInit {
         this.loaderService.hideFullScreenLoading();
       },
       error: (err: Error) => {
-        this.apiService.showToasrtMsg('error', err.message);
         this.loaderService.hideFullScreenLoading();
+        this.apiService.showToasrtMsg('error', err.message);
+        this.modal.open(ModalComponent, {
+          data: {
+            type: 'serverError'
+          }
+        }).afterClosed()
+          .subscribe(() => {
+            this.apiService.showToasrtMsg('success', 'Server has been successfully restarted');
+            this.loaderService.hideLoading();
+            this.ngOnInit();
+          });
       }
     })
   }

@@ -1,7 +1,9 @@
 import { Target } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Slide } from 'src/app/shared/models/Slide';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
@@ -28,15 +30,16 @@ export class ShowComponent implements OnInit {
     private loaderService: LoaderService,
     private route: ActivatedRoute,
     private apiService: ApiService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private modal: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.slideService.getSlides(this.route.snapshot.params['id']).subscribe({
       next: (res: any) => {
-        if (res.errno) {
-          this.apiService.showToasrtMsg('error', res.sqlMessage);
-          this.loaderService.hideLoading();
+        if (res?.errno || !res) {
+          this.apiService.showToasrtMsg('error', (res?.sqlMessage || 'Internal Server Error, status 500'));
+          this.loaderService.hideFullScreenLoading();
           return;
         }
 
@@ -48,22 +51,28 @@ export class ShowComponent implements OnInit {
       },
       error: (err: Error) => {
         this.loaderService.hideFullScreenLoading();
-        this.apiService.showToasrtMsg('error', err.message);
+        this.modal.open(ModalComponent, {
+          data: {
+            type: 'serverError'
+          }
+        });
       }
     })
   }
 
   changeSlide(type: string) {
     if (type == 'next') {
-      if (this.slides.length - 1 == this.slideNumber) return;
+      if (this.slides.length == this.slideNumber) return;
       this.slideNumber++;
     } else {
       if (this.slideNumber <= 0) return;
       this.slideNumber--;
     }
 
-    this.duration = 0;
-    this.slideDuration = Number(this.utils.convertTime(this.slides[this.slideNumber].duration, 'seconds'));
+    if (this.slides.length !== this.slideNumber) {
+      this.duration = 0;
+      this.slideDuration = Number(this.utils.convertTime(this.slides[this.slideNumber].duration, 'seconds'));
+    }
 
     this.startTimer(true, 1000);
   }

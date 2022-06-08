@@ -36,7 +36,14 @@ export class ModalComponent implements OnInit {
 
   createSlide() {
     this.loaderService.showLoading();
+
+    if (this.data.type === 'serverError') {
+      this.apiService.restartServer().subscribe(()=> this.modal.close())
+      return;
+    };
     if (this.data.type === 'slideshow') return this.modal.close(this.slideshow);
+
+
 
     if (!this.slide.id) {
       this.slide.slideshow_id = this.data.slideshow.url;
