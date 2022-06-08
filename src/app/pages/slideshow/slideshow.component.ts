@@ -20,22 +20,30 @@ export class SlideshowComponent implements OnInit {
   slideshow: Slideshow = new Slideshow();
 
   enableEditing: boolean = false;
+  serverError: boolean = false;
 
   utils = Utils
 
   constructor(
-    public modal: MatDialog,
     private slideshowService: SlideshowService,
     private loaderService: LoaderService,
     private slideService: SlideService,
+    private apiService: ApiService,
     private route: ActivatedRoute,
-    private apiService: ApiService
+    public modal: MatDialog,
   ) { }
 
   ngOnInit(): void {
-    this.slideshowService.getSlideshow(this.route.snapshot.params['id']).subscribe((slideshow: any) => {
-      this.slideshow = slideshow;
-      this.loaderService.hideFullScreenLoading();
+    this.slideshowService.getSlideshow(this.route.snapshot.params['id']).subscribe({
+      next: (slideshow: any) => {
+        this.slideshow = slideshow;
+        this.loaderService.hideFullScreenLoading();
+      },
+      error: (err: Error) => {
+        this.loaderService.hideFullScreenLoading();
+        this.apiService.showToasrtMsg('error', err.message);
+        this.serverError = true;
+      }
     })
   }
 
@@ -49,12 +57,11 @@ export class SlideshowComponent implements OnInit {
         this.enableEditing = false;
 
         this.apiService.showToasrtMsg('success', res.msg);
-
         this.slideshow.isLoading = false;
       },
-      error: (err) => {
-        this.apiService.showToasrtMsg('error', err.error.message);
-        
+      error: (err: Error) => {
+        this.apiService.showToasrtMsg('error', err.message);
+
         this.slideshow.isLoading = false;
       }
     })
@@ -72,21 +79,24 @@ export class SlideshowComponent implements OnInit {
 
     newSlide.afterClosed().subscribe((slide: Slide) => {
       if (slide) {
-        this.slideService.createSlide(slide).subscribe((res: any) => {
-          if (res.errno) {
-            this.apiService.showToasrtMsg('error', res.sqlMessage);
+        this.slideService.createSlide(slide).subscribe({
+          next: (res: any) => {
+            if (res.errno) {
+              this.apiService.showToasrtMsg('error', res.sqlMessage);
+              this.loaderService.hideLoading();
+              return;
+            }
+
+            slide.id = res.insertId;
+            this.slideshow.slides?.push(slide);
+
             this.loaderService.hideLoading();
-            return;
+            this.apiService.showToasrtMsg('success', res.msg);
+          },
+          error: (err: Error) => {
+            this.apiService.showToasrtMsg('error', err.message);
+            this.loaderService.hideLoading();
           }
-
-          slide.id = res.insertId;
-          this.slideshow.slides?.push(slide);
-
-          this.loaderService.hideLoading();
-          this.apiService.showToasrtMsg('success', res.msg);
-        }, err => {
-          this.apiService.showToasrtMsg('error', err.error.message);
-          this.loaderService.hideLoading();
         })
       }
     })
@@ -117,8 +127,8 @@ export class SlideshowComponent implements OnInit {
           this.loaderService.hideLoading();
           this.apiService.showToasrtMsg('success', res.msg);
         },
-        error: (err) => {
-          this.apiService.showToasrtMsg('error', err.error.message);
+        error: (err: Error) => {
+          this.apiService.showToasrtMsg('error', err.message);
           this.loaderService.hideLoading();
         },
       })
@@ -129,20 +139,23 @@ export class SlideshowComponent implements OnInit {
   deleteSlide(slide: Slide, i: number) {
     slide.isLoading = true;
 
-    this.slideService.deleteSlide(slide.id!).subscribe((res: any) => {
-      if (res.errno) {
-        this.apiService.showToasrtMsg('error', res.sqlMessage);
+    this.slideService.deleteSlide(slide.id!).subscribe({
+      next: (res: any) => {
+        if (res.errno) {
+          this.apiService.showToasrtMsg('error', res.sqlMessage);
+          slide.isLoading = false;
+          return;
+        }
+
+        this.slideshow.slides?.splice(i, 1);
+
         slide.isLoading = false;
-        return;
+        this.apiService.showToasrtMsg('success', res.msg);
+      },
+      error: (err: Error) => {
+        this.apiService.showToasrtMsg('error', err.message);
+        slide.isLoading = false;
       }
-
-      this.slideshow.slides?.splice(i, 1);
-
-      slide.isLoading = false;
-      this.apiService.showToasrtMsg('success', res.msg);
-    }, err => {
-      this.apiService.showToasrtMsg('error', err.error.message);
-      slide.isLoading = false;
     })
   }
 }

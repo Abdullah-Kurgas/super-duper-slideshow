@@ -46,9 +46,9 @@ export class ShowComponent implements OnInit {
         this.loaderService.hideFullScreenLoading();
         this.startTimer(false, 1000);
       },
-      error: (err) => {
+      error: (err: Error) => {
         this.loaderService.hideFullScreenLoading();
-        this.apiService.showToasrtMsg('error', err.error.message);
+        this.apiService.showToasrtMsg('error', err.message);
       }
     })
   }

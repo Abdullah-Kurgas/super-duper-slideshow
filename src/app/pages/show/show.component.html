@@ -6,6 +6,9 @@
         <iframe *ngIf="slide.video_url"
             [src]="(slide.video_url.replace('watch?v=', 'embed/').substring(0 ,slide.video_url.replace('watch?v=', 'embed/').indexOf('&'))) | urlSanitizer"
             autoplay frameborder="0"></iframe>
+        <div *ngIf="slideNumber == slides.length" class="w-100 h-100 bg-dark">
+
+        </div>
     </div>
 
     <div class="controller">

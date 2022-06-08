@@ -8,8 +8,6 @@ export class ApiService {
 
   constructor(private toastr: ToastrService) { }
 
-
-
   showToasrtMsg(type: string, msg: string) {
     if(type == 'success'){
       this.toastr.success(msg);

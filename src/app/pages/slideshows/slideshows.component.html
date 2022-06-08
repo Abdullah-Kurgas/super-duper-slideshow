@@ -6,7 +6,7 @@
             <div>
                 <div>
                     <span><b>Stand {{i + 1}}</b></span>
-                    <span class="mx-3">{{slideshow.slides.length}} {{slideshow.slides.length == 1 ? 'Slide' :
+                    <span class="mx-3">{{slideshow.slides?.length}} {{slideshow.slides?.length == 1 ? 'Slide' :
                         'Slides'}}</span>
                 </div>
                 <div class="my-2">
@@ -29,7 +29,7 @@
         </div>
     </div>
 
-    <div class="text-center" *ngIf="slideshows.length === 0">
+    <div class="text-center" *ngIf="slideshows?.length === 0">
         The list is empty
     </div>
 
