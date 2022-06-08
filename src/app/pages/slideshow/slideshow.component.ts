@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Slide } from 'src/app/shared/models/Slide';
@@ -29,8 +28,7 @@ export class SlideshowComponent implements OnInit {
     private loaderService: LoaderService,
     private slideService: SlideService,
     private apiService: ApiService,
-    private route: ActivatedRoute,
-    public modal: MatDialog,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -41,11 +39,7 @@ export class SlideshowComponent implements OnInit {
       },
       error: (err: Error) => {
         this.loaderService.hideFullScreenLoading();
-        this.modal.open(ModalComponent, {
-          data: {
-            type: 'serverError'
-          }
-        }).afterClosed()
+        this.apiService.showModal('serverError').afterClosed()
           .subscribe(() => {
             this.apiService.showToasrtMsg('success', 'Server has been successfully restarted');
             this.loaderService.hideLoading();
@@ -78,17 +72,40 @@ export class SlideshowComponent implements OnInit {
 
 
   /* Slide functions */
-  createSlide(type: string) {
-    let newSlide = this.modal.open(ModalComponent, {
-      data: {
-        slideshow: this.slideshow,
-        type: type
-      }
-    });
+  createSlide() {
 
-    newSlide.afterClosed().subscribe((slide: Slide) => {
-      if (slide) {
-        this.slideService.createSlide(slide).subscribe({
+    this.apiService.showModal('slide', this.slideshow)
+      .afterClosed().subscribe((slide: Slide) => {
+        if (slide) {
+          this.slideService.createSlide(slide).subscribe({
+            next: (res: any) => {
+              if (res.errno) {
+                this.apiService.showToasrtMsg('error', res.sqlMessage);
+                this.loaderService.hideLoading();
+                return;
+              }
+
+              slide.id = res.insertId;
+              this.slideshow.slides?.push(slide);
+
+              this.loaderService.hideLoading();
+              this.apiService.showToasrtMsg('success', res.msg);
+            },
+            error: (err: Error) => {
+              this.apiService.showToasrtMsg('error', err.message);
+              this.loaderService.hideLoading();
+            }
+          })
+        }
+      })
+  }
+
+  editSlide(slide: Slide) {
+    this.apiService.showModal('slide', slide)
+      .afterClosed().subscribe((slide: Slide) => {
+        if (!slide) return;
+
+        this.slideService.editSlide(slide).subscribe({
           next: (res: any) => {
             if (res.errno) {
               this.apiService.showToasrtMsg('error', res.sqlMessage);
@@ -96,8 +113,8 @@ export class SlideshowComponent implements OnInit {
               return;
             }
 
-            slide.id = res.insertId;
-            this.slideshow.slides?.push(slide);
+            const index = this.slideshow.slides.findIndex((el) => el.id === slide.id);
+            this.slideshow.slides[index] = slide;
 
             this.loaderService.hideLoading();
             this.apiService.showToasrtMsg('success', res.msg);
@@ -105,43 +122,9 @@ export class SlideshowComponent implements OnInit {
           error: (err: Error) => {
             this.apiService.showToasrtMsg('error', err.message);
             this.loaderService.hideLoading();
-          }
+          },
         })
-      }
-    })
-  }
-
-  editSlide(slide: Slide) {
-    let editSlide = this.modal.open(ModalComponent, {
-      data: {
-        slide: slide,
-        type: 'slide'
-      }
-    });
-
-    editSlide.afterClosed().subscribe((slide: Slide) => {
-      if (!slide) return;
-
-      this.slideService.editSlide(slide).subscribe({
-        next: (res: any) => {
-          if (res.errno) {
-            this.apiService.showToasrtMsg('error', res.sqlMessage);
-            this.loaderService.hideLoading();
-            return;
-          }
-
-          const index = this.slideshow.slides.findIndex((el) => el.id === slide.id);
-          this.slideshow.slides[index] = slide;
-
-          this.loaderService.hideLoading();
-          this.apiService.showToasrtMsg('success', res.msg);
-        },
-        error: (err: Error) => {
-          this.apiService.showToasrtMsg('error', err.message);
-          this.loaderService.hideLoading();
-        },
       })
-    })
 
   }
 

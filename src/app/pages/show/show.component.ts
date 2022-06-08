@@ -1,9 +1,6 @@
-import { Target } from '@angular/compiler';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ModalComponent } from 'src/app/components/modal/modal.component';
 import { Slide } from 'src/app/shared/models/Slide';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
@@ -30,8 +27,7 @@ export class ShowComponent implements OnInit {
     private loaderService: LoaderService,
     public route: ActivatedRoute,
     private apiService: ApiService,
-    public sanitizer: DomSanitizer,
-    private modal: MatDialog
+    public sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -51,11 +47,7 @@ export class ShowComponent implements OnInit {
       },
       error: (err: Error) => {
         this.loaderService.hideFullScreenLoading();
-        this.modal.open(ModalComponent, {
-          data: {
-            type: 'serverError'
-          }
-        });
+        this.apiService.showModal('serverError')
       }
     })
   }

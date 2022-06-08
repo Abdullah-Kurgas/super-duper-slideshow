@@ -31,7 +31,7 @@ export class ModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.data?.slide ? this.slide = {...this.data?.slide} : null;
+    this.data.data['slideshow_id'] ? this.slide = {...this.data?.data} : null;
   }
 
   createSlide() {
@@ -46,7 +46,7 @@ export class ModalComponent implements OnInit {
 
 
     if (!this.slide.id) {
-      this.slide.slideshow_id = this.data.slideshow.url;
+      this.slide.slideshow_id = this.data.data.url;
     }
 
     if (this.image) {
