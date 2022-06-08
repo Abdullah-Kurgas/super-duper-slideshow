@@ -28,7 +28,7 @@ export class ShowComponent implements OnInit {
   constructor(
     private slideService: SlideService,
     private loaderService: LoaderService,
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private apiService: ApiService,
     public sanitizer: DomSanitizer,
     private modal: MatDialog

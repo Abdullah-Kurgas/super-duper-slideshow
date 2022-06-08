@@ -9,8 +9,8 @@
     </div>
 
     <div class="slide" *ngIf="slides?.length == this.slideNumber">
-        <div class="w-100 h-100 bg-dark" >
-
+        <div class="d-flex justify-content-center align-items-center w-100 h-100 bg-dark">
+            <button mat-flat-button [routerLink]="['/dashboard/slideshow/'+route.snapshot.params['id']]">Close show</button>
         </div>
     </div>
 
