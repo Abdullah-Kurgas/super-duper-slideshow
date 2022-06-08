@@ -43,7 +43,7 @@ export class SlideshowComponent implements OnInit {
           .subscribe(() => {
             this.apiService.showToasrtMsg('success', 'Server has been successfully restarted');
             this.loaderService.hideLoading();
-            this.ngOnInit();
+            location.reload();
           });
         this.serverError = true;
       }
