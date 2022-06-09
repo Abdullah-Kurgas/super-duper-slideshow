@@ -5,6 +5,38 @@
     h1 {
         width: 10rem;
     }
+
+    .user{
+        display: flex;
+        margin: 0 1rem;
+        font-family: system-ui;
+        
+        .info{
+            margin-right: .5rem;
+            div {
+                font-size: 15px;
+                &:last-of-type{
+                    text-align: end;
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .avatar{
+            height: 2.5rem;
+            width: 2.5rem;
+            border: 1px solid gainsboro;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &:hover{
+                box-shadow: 0 0 5px grey;
+            }
+        }
+    }
 }
 
 .content {

@@ -1,14 +1,20 @@
 <div>
-    <div class="header d-flex justify-content-between py-3">
-        <h1 class="mx-4"><b>Super Duper Slideshow</b></h1>
-        <div>
-            <span>{{userService.userData.username}}</span>
-            <span class="mx-3 fw-bold" role="button" (click)="logout()">Logout</span>
+    <div class="header d-flex justify-content-between align-items-center py-3">
+        <h1 class="mx-4 my-0"><b>Super Duper Slideshow</b></h1>
+        <div class="user">
+            <span class="info">
+               <div>{{userService.userData.username}}</div>
+               <div>ADMIN</div>
+            </span>
+            <span class="avatar">
+                <span>{{userService.userData.username.substring(0, 1).toUpperCase()}}</span>
+            </span>
+            <!-- <span class="mx-3 fw-bold" role="button" (click)="logout()">Logout</span> -->
         </div>
     </div>
 
     <div class="row m-0 content">
-        <div class="col-2 side-bar">
+        <div class="col-2 side-bar pt-5">
             <div class="side-item" [class]="!router.url.includes('slideshows') ? 'selected' : ''" [routerLink]="'/dashboard/create'">
                 <p class="d-flex align-items-center p-0 m-0">
                     <i class="bi bi-plus fs-4 me-2"></i>
