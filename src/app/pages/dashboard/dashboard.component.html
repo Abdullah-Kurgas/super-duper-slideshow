@@ -4,7 +4,7 @@
         <div class="user">
             <span class="info">
                <div>{{userService.userData.username}}</div>
-               <div>ADMIN</div>
+               <div>{{userService.userData?.role}}</div>
             </span>
             <span class="avatar">
                 <span>{{userService.userData.username.substring(0, 1).toUpperCase()}}</span>

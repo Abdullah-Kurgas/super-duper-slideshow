@@ -5,5 +5,6 @@ export class User {
   email!: string;
   username!: string;
   password!: string;
-  created_at!: string
+  created_at!: string;
+  role!: string;
 }
