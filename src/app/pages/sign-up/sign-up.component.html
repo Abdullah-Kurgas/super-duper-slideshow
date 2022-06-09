@@ -9,9 +9,9 @@
             <label>Email</label>
             <input class="w-100 p-2 border-1 rounded-1" type="text" autocomplete="email" name="email" #email="ngModel"
                 required [(ngModel)]="user.email" placeholder="Email"
-                [ngClass]="email.invalid && email.touched && email.model == '' ?  'border-danger' : ''" />
-            <p class="text-danger" *ngIf="email.invalid && email.touched && email.model == ''">Email is required!
-            </p>
+                [ngClass]="email.invalid && email.touched && email.model == '' && !checkEmailValidity() ?  'border-danger' : ''" />
+            <p class="text-danger" *ngIf="email.invalid && email.touched && email.model == ''">Email is required!</p>
+            <p class="text-danger" *ngIf="!checkEmailValidity()">Email is not valid!</p>
         </div>
 
         <div class="my-3">
@@ -47,7 +47,7 @@
         </div>
 
         <div class="text-center mx-4">
-            <button mat-stroked-button class="px-4 w-100" [disabled]="!loginForm.valid" (click)="executeSignUp()">
+            <button mat-stroked-button class="px-4 w-100" [disabled]="(!loginForm.valid || !checkEmailValidity()) || isLoading " (click)="executeSignUp()">
                 <span *ngIf="!isLoading">Sign Up</span>
                 <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
                     <span class="visually-hidden">Loading...</span>
