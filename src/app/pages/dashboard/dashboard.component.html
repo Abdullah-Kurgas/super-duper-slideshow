@@ -7,21 +7,21 @@
         </div>
     </div>
 
-    <div class="row mx-3 content">
-        <div class="col-2">
-            <div>
-                <p class="text-start p-0 mb-3" role="button"
-                    [class]="!router.url.includes('slideshows') ? 'fw-bold mx-2' : ''"
-                    [routerLink]="'/dashboard/create'">Create</p>
+    <div class="d-flex content">
+        <div class="side-bar">
+            <div class="side-item" [class]="!router.url.includes('slideshows') ? 'selected' : ''" [routerLink]="'/dashboard/create'">
+                <p class="d-flex align-items-center p-0 m-0">
+                    <i class="bi bi-plus fs-4 me-2"></i>
+                    Create</p>
             </div>
-            <div>
-                <p class="text-start p-0" role="button"
-                    [class]="router.url.includes('slideshows') ? 'fw-bold mx-2' : ''"
-                    [routerLink]="'/dashboard/slideshows'">My Slideshows</p>
+            <div class="side-item" [class]="router.url.includes('slideshows') ? 'selected' : ''" [routerLink]="'/dashboard/slideshows'">
+                <p class="d-flex align-items-center p-0 m-0">
+                    <i class="bi bi-list fs-4 me-2"></i>
+                    My slideshows</p>
             </div>
         </div>
 
-        <div class="col-10">
+        <div class="p-4 w-100">
             <router-outlet></router-outlet>
         </div>
     </div>
