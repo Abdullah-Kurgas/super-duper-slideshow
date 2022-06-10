@@ -39,7 +39,8 @@
                 <img *ngIf="slide.image && !slide.video_url" [src]="slide.image">
                 <div class="video-content" *ngIf="slide.video_url">
                     <img [src]="slide.image">
-                    <span class="text-center">{{slide.video_url.substring(0 ,slide.video_url.indexOf('&'))}}</span>
+                    <span class="text-center">{{slide.video_url.substring(0 ,(slide.video_url.indexOf('&') > -1 ?
+                        slide.video_url.indexOf('&'):undefined))}}</span>
                 </div>
             </div>
 
@@ -52,6 +53,6 @@
         </div>
     </div>
 
-    <button mat-flat-button color="primary" class="mt-5 px-5"
-        [routerLink]="'/'+ slideshow.url" [disabled]="slideshow.slides?.length === 0 || serverError">Preview</button>
+    <button mat-flat-button color="primary" class="mt-5 px-5" [routerLink]="'/'+ slideshow.url"
+        [disabled]="slideshow.slides?.length === 0 || serverError">Preview</button>
 </div>
