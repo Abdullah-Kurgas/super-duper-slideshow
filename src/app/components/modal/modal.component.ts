@@ -31,14 +31,14 @@ export class ModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.data.data['slideshow_id'] ? this.slide = {...this.data?.data} : null;
+    this.data.data['slideshow_id'] ? this.slide = { ...this.data?.data } : null;
   }
 
   createSlide() {
     this.loaderService.showLoading();
 
     if (this.data.type === 'serverError') {
-      this.apiService.restartServer().subscribe(()=> this.modal.close())
+      this.apiService.restartServer().subscribe(() => this.modal.close())
       return;
     };
     if (this.data.type === 'slideshow') return this.modal.close(this.slideshow);
@@ -99,15 +99,14 @@ export class ModalComponent implements OnInit {
   }
 
   getVideo() {
-    let videoId = this.slide.video_url?.
-      substring(this.slide.video_url.indexOf('v=') + 2, this.slide.video_url.indexOf('&'));
+    let videoId = this.slide.video_url?.substring(this.slide.video_url.indexOf('v=') + 2, (this.slide.video_url.indexOf('&') > -1 ? this.slide.video_url.indexOf('&') : undefined));
 
     return this.videoService.getVideoById(videoId!);
   }
 
   disableField(filed1: any, filed2: any) {
-    if((this.slide.video_url && !filed1 && filed2) && filed2 == this.slide.image) return false
-    
+    if ((this.slide.video_url && !filed1 && filed2) && filed2 == this.slide.image) return false
+
     return filed1 || filed2;
   }
 
