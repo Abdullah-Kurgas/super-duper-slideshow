@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'slideshows', component: SlideshowsComponent }
     ]
   },
-  { path: 'slideshow/:id', component: ShowComponent }
+  { path: ':id', component: ShowComponent }
 ];
 
 @NgModule({

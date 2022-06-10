@@ -1,7 +1,12 @@
 export default class Utils {
+    private static baseUrl: string = location.origin;
 
-    static getDataFromLocalOrSession(key: string){
+    static getDataFromLocalOrSession(key: string) {
         return JSON.parse((localStorage.getItem(key) || sessionStorage.getItem(key))!);
+    }
+
+    static copyLink(url: string) {
+        navigator.clipboard.writeText(this.baseUrl + '/' + url).then().catch(e => console.error(e));
     }
 
     static convertTime(time: string, type: string) {

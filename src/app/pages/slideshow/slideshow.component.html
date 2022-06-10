@@ -15,7 +15,7 @@
         <div>
             <span class="fw-bold">Slideshow URL</span>
             <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.url" disabled>
-            <span role="button">Copy</span>
+            <span role="button" (click)="utils.copyLink(slideshow.url)">Copy</span>
         </div>
     </div>
 
@@ -53,5 +53,5 @@
     </div>
 
     <button mat-flat-button color="primary" class="mt-5 px-5"
-        [routerLink]="'/slideshow/'+ slideshow.url" [disabled]="slideshow.slides?.length === 0 || serverError">Preview</button>
+        [routerLink]="'/'+ slideshow.url" [disabled]="slideshow.slides?.length === 0 || serverError">Preview</button>
 </div>

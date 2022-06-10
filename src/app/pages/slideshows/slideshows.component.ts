@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/shared/services/api.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { SlideshowService } from 'src/app/shared/services/slideshow.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { environment } from 'src/environments/environment';
+import Utils from 'src/app/shared/Utils';
 
 @Component({
   selector: 'app-slideshows',
@@ -14,7 +14,9 @@ import { environment } from 'src/environments/environment';
 })
 export class SlideshowsComponent implements OnInit {
   slideshows: any;
-  baseUrl = environment.backendUrl;
+  baseUrl = location.origin + '/';
+
+  utils = Utils;
 
   constructor(
     private slideshowService: SlideshowService,
