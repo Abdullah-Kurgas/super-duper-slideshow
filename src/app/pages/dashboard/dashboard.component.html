@@ -1,29 +1,38 @@
-<div>
+<div (click)="openUserMenu($event, 'close')">
     <div class="header d-flex justify-content-between align-items-center py-3">
         <h1 class="mx-4 my-0"><b>Super Duper Slideshow</b></h1>
         <div class="user">
             <span class="info">
-               <div>{{userService.userData.username}}</div>
-               <div>{{userService.userData?.role}}</div>
+                <div>{{userService.userData.username}}</div>
+                <div>{{userService.userData?.role}}</div>
             </span>
-            <span class="avatar">
-                <span>{{userService.userData.username.substring(0, 1).toUpperCase()}}</span>
-            </span>
-            <!-- <span class="mx-3 fw-bold" role="button" (click)="logout()">Logout</span> -->
+
+            <div class="dropdown">
+                <span class="avatar" (click)="openUserMenu($event)">
+                    <span>{{userService.userData.username.substring(0, 1).toUpperCase()}}</span>
+                </span>
+                <ul class="dropdown-menu dropdown-menu-end d-block" style="right: 0;" *ngIf="isUserMenuOpened" (click)="openUserMenu($event, 'stay')">
+                    <li><button class="dropdown-item" type="button" (click)="logout()">Logout</button></li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="row m-0 content">
         <div class="col-2 side-bar pt-5">
-            <div class="side-item" [class]="!router.url.includes('slideshows') ? 'selected' : ''" [routerLink]="'/dashboard/create'">
+            <div class="side-item" [class]="!router.url.includes('slideshows') ? 'selected' : ''"
+                [routerLink]="'/dashboard/create'">
                 <p class="d-flex align-items-center p-0 m-0">
                     <i class="bi bi-plus fs-4 me-2"></i>
-                    Create</p>
+                    Create
+                </p>
             </div>
-            <div class="side-item" [class]="router.url.includes('slideshows') ? 'selected' : ''" [routerLink]="'/dashboard/slideshows'">
+            <div class="side-item" [class]="router.url.includes('slideshows') ? 'selected' : ''"
+                [routerLink]="'/dashboard/slideshows'">
                 <p class="d-flex align-items-center p-0 m-0">
                     <i class="bi bi-list fs-4 me-2"></i>
-                    My slideshows</p>
+                    My slideshows
+                </p>
             </div>
         </div>
 
