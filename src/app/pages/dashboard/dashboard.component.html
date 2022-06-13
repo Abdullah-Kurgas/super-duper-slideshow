@@ -7,13 +7,15 @@
                 <div>{{userService.userData?.role}}</div>
             </span>
 
-            <div class="dropdown">
+            <div class="user-drop">
                 <span class="avatar" (click)="openUserMenu($event)">
                     <span>{{userService.userData.username.substring(0, 1).toUpperCase()}}</span>
                 </span>
-                <ul class="dropdown-menu dropdown-menu-end d-block" style="right: 0;" *ngIf="isUserMenuOpened" (click)="openUserMenu($event, 'stay')">
-                    <li><button class="dropdown-item" type="button" (click)="logout()">Logout</button></li>
-                </ul>
+                <div class="user-menu" *ngIf="isUserMenuOpened" (click)="openUserMenu($event, 'stay')">
+                    <div class="menu-item" >Profile</div>
+                    <div class="menu-item" >Something</div>
+                    <div class="menu-item" (click)="logout()">Logout</div>
+                </div>
             </div>
         </div>
     </div>

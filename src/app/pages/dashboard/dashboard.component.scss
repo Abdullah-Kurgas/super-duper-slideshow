@@ -6,23 +6,25 @@
         width: 10rem;
     }
 
-    .user{
+    .user {
         display: flex;
         margin: 0 1rem;
         font-family: system-ui;
-        
-        .info{
+
+        .info {
             margin-right: .5rem;
+
             div {
                 font-size: 15px;
-                &:last-of-type{
+
+                &:last-of-type {
                     text-align: end;
                     font-size: 10px;
                 }
             }
         }
 
-        .avatar{
+        .avatar {
             height: 2.5rem;
             width: 2.5rem;
             border: 1px solid gainsboro;
@@ -32,8 +34,31 @@
             justify-content: center;
             cursor: pointer;
 
-            &:hover{
+            &:hover {
                 box-shadow: 0 0 5px grey;
+            }
+        }
+
+        .user-drop {
+            position: relative;
+
+            .user-menu {
+                position: absolute;
+                right: 0;
+                min-width: 5rem;
+                background-color: white;
+                border-radius: 5px;
+                box-shadow: 0 0 5px 0 #d5d5d5;
+                text-align: center;
+
+                .menu-item {
+                    padding: 10px 1rem;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: whitesmoke;
+                    }
+                }
             }
         }
     }
@@ -45,7 +70,7 @@
 
     .side-bar {
         max-width: 20rem;
-        
+
         background-color: #f4f5f7;
         padding: .5rem .7rem;
         color: #42526e;
