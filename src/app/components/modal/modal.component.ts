@@ -43,8 +43,6 @@ export class ModalComponent implements OnInit {
     };
     if (this.data.type === 'slideshow') return this.modal.close(this.slideshow);
 
-
-
     if (!this.slide.id) {
       this.slide.slideshow_id = this.data.data.url;
     }
