@@ -16,8 +16,8 @@ export default class Utils {
 
         if (time.includes('PT')) {
             h = time.includes('H') ? (time.substring(time.indexOf('T') + 1, time.indexOf('H'))) : '';
-            m = time.substring((!time.includes('H') ? time.indexOf('T') : time.indexOf('H')) + 1, time.indexOf('M'));
-            s = time.substring(time.indexOf('M') + 1, time.indexOf('S'));
+            m = time.includes('M') ? time.substring((!time.includes('H') ? time.indexOf('T') : time.indexOf('H')) + 1, time.indexOf('M')) : '00';
+            s = time.substring((time.indexOf('M') > -1 ? (time.indexOf('M') + 1) : time.indexOf('PT') + 2), time.indexOf('S'));
 
 
             if (type === 'fullTime')

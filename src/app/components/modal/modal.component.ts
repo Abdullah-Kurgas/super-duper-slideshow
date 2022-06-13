@@ -61,7 +61,7 @@ export class ModalComponent implements OnInit {
     if (this.slide.video_url) {
       this.getVideo().subscribe({
         next: (videos: Videos) => {
-          this.slide.image = videos.items![0].snippet.thumbnails.standard.url;
+          this.slide.image = videos.items![0].snippet.thumbnails.standard?.url || '../../../assets/no-thumbnail.jpg';
           this.slide.duration = videos.items![0].contentDetails.duration;
 
           this.modal.close(this.slide);

@@ -3,22 +3,25 @@
     <div class="slide" *ngFor="let slide of slides">
         <div class="image" *ngIf="slide.image && !slide.video_url" [style]="'background:url('+slide.image+')'"></div>
         <iframe *ngIf="slide.website_url" [src]="slide.website_url | urlSanitizer" frameborder="0"></iframe>
-        <iframe *ngIf="slide.video_url" id="player"
-            [src]="(slide.video_url.replace('watch?v=', 'embed/').substring(0 , slide.video_url.replace('watch?v=', 'embed/').indexOf('&') > -1 ? slide.video_url.replace('watch?v=', 'embed/').indexOf('&'):undefined )) | urlSanitizer"
-            autoplay frameborder="0"></iframe>
+
+        <youtube-player *ngIf="slide.video_url" [width]="videoWidth" [height]="videoHeight" suggestedQuality="highres"
+            (stateChange)="videoStateChange($event)"
+            [videoId]="slide.video_url?.substring(slide.video_url.indexOf('v=') + 2, (slide.video_url.indexOf('&') > -1 ? slide.video_url.indexOf('&') : undefined))">
+        </youtube-player>
     </div>
 
     <div class="slide" *ngIf="slides?.length == this.slideNumber">
         <div class="d-flex justify-content-center align-items-center w-100 h-100 bg-dark">
-            <button mat-flat-button [routerLink]="['/dashboard/slideshow/'+route.snapshot.params['id']]">Close
-                show</button>
+            <button mat-flat-button [routerLink]="['/dashboard/slideshow/'+route.snapshot.params['id']]">Close show</button>
         </div>
     </div>
 
     <div class="controller" *ngIf="slides?.length !== this.slideNumber">
-        <i class="bi bi-chevron-right next" *ngIf="slideNumber < slides?.length! - 1" (click)="changeSlide('next')"></i>
-        <div>{{duration +'/'+slideDuration}}</div>
-        <div class="play-pause" (click)="playPause()">
+        <div class="next">
+            <i class="bi bi-chevron-right" *ngIf="slideNumber < slides?.length! - 1" (click)="changeSlide('next')"></i>
+            <i class="bi bi-box-arrow-right"  *ngIf="slideNumber == slides?.length! - 1" (click)="changeSlide('next')"></i>
+        </div>
+        <div class="play-pause" (click)="playPause()" *ngIf="!slides?.[slideNumber]?.video_url">
             <i class="bi bi-pause" *ngIf="isPlaying"></i>
             <i class="bi bi-play-fill" *ngIf="!isPlaying"></i>
         </div>

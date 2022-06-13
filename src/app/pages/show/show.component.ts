@@ -18,7 +18,13 @@ export class ShowComponent implements OnInit {
   slideNumber: number = 0;
   slideDuration!: number;
   duration: number = 0;
-  isPlaying: boolean = true;
+  isPlaying: boolean = false;
+
+  videoWidth: number = window.screen.width;
+  videoHeight: number = window.screen.height;
+  isVideoReady: boolean = false;
+  isVideoStarted: boolean = false;
+  videoEvent: any;
 
   utils = Utils;
 
@@ -29,6 +35,16 @@ export class ShowComponent implements OnInit {
     private apiService: ApiService,
     public sanitizer: DomSanitizer
   ) { }
+
+  videoStateChange(e: any) {
+    this.videoEvent = e.target;
+
+    if (this.slideDuration == Math.round(this.videoEvent.getCurrentTime()) ||
+      this.slideDuration == Math.round(this.videoEvent.getCurrentTime()) - 1 ||
+      this.slideDuration == Math.round(this.videoEvent.getCurrentTime()) + 1) {
+      this.changeSlide('next');
+    }
+  }
 
   ngOnInit(): void {
     this.slideService.getSlides(this.route.snapshot.params['id']).subscribe({
@@ -43,11 +59,10 @@ export class ShowComponent implements OnInit {
 
         this.slideDuration = Number(this.utils.convertTime(this.slides[this.slideNumber].duration, 'seconds'));
         this.loaderService.hideFullScreenLoading();
-        this.startTimer(false, 1000);
       },
       error: (err: Error) => {
         this.loaderService.hideFullScreenLoading();
-        this.apiService.showModal('serverError')
+        this.apiService.showModal('serverError');
       }
     })
   }
@@ -66,7 +81,11 @@ export class ShowComponent implements OnInit {
       this.slideDuration = Number(this.utils.convertTime(this.slides[this.slideNumber].duration, 'seconds'));
     }
 
-    this.startTimer(true, 1000);
+    if (!this.slides[this.slideNumber]?.video_url) {
+      this.startTimer(true, 1000);
+    } else {
+      this.startTimer(true, 1000);
+    }
   }
 
   playPause() {
