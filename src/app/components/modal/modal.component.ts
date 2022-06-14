@@ -38,7 +38,7 @@ export class ModalComponent implements OnInit {
     this.loaderService.showLoading();
 
     if (this.data.type === 'serverError') {
-      this.apiService.restartServer().subscribe(() => this.modal.close())
+      console.error('Server error')
       return;
     };
     if (this.data.type === 'slideshow') return this.modal.close(this.slideshow);
