@@ -32,15 +32,8 @@ export class SlideshowsComponent implements OnInit {
         this.loaderService.hideFullScreenLoading();
       },
       error: (err: Error) => {
-        this.loaderService.hideFullScreenLoading();
         this.apiService.showToasrtMsg('error', err.message);
-
-        this.apiService.showModal('serverError').afterClosed()
-          .subscribe(() => {
-            this.apiService.showToasrtMsg('success', 'Server has been successfully restarted');
-            this.loaderService.hideLoading();
-            location.reload();
-          });
+        this.loaderService.hideFullScreenLoading();
       }
     })
   }
