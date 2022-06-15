@@ -15,7 +15,7 @@
         <div>
             <span class="fw-bold">Slideshow URL</span>
             <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.url" disabled>
-            <span role="button" (click)="utils.copyLink(slideshow.url)">Copy</span>
+            <span role="button" class="fw-bold" (click)="utils.copyLink($event, slideshow.url)">Copy</span>
         </div>
     </div>
 

@@ -27,8 +27,10 @@ export class SlideshowsComponent implements OnInit {
 
   ngOnInit(): void {
     this.slideshowService.getSlideshows(this.userService.userData.id!).subscribe({
-      next: (slideshows) => {
-        this.slideshows = slideshows;
+      next: (slideshows: any) => {
+        if(slideshows.errorMsg) this.apiService.showToasrtMsg('error', slideshows.errorMsg);
+        else this.slideshows = slideshows;
+        
         this.loaderService.hideFullScreenLoading();
       },
       error: (err: Error) => {

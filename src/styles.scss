@@ -82,3 +82,30 @@ input{
     background: #b30000;
   }
 }
+
+/* Popover */
+.sl-popover {
+  position: relative;
+
+  &::before {
+      content: 'Copied';
+      position: absolute;
+      bottom: 1.5rem;
+      right: -15px;
+      padding: .2rem .5rem;
+      background-color: #000000bb;
+      border-radius: 3px;
+      color: white;
+      cursor: auto;
+  }
+
+  &::after {
+      position: absolute;
+      content: "";
+      top: -8px;
+      right: 10px;
+      transform: rotate(270deg);
+      border: 5px solid #ffd70000;
+      border-right: 5px solid #000000bb;
+  }
+}
