@@ -29,10 +29,9 @@ export class SignUpComponent implements OnInit {
   }
 
   executeSignUp() {
-
     this.userService.executeSignUp(this.user).subscribe({
       next: (res: any) => {
-        this.apiService.showToasrtMsg('success', res.msg);
+        this.apiService.showToasrtMsg('success', 'User successfully created');
         this.router.navigate(['login']);
       },
       error: (err: Error) => {
