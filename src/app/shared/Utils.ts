@@ -25,8 +25,8 @@ export default class Utils {
 
             h = +h * 3600;
             m = +m * 60;
-            return +h + +m + +s;
 
+            return +h + +m + +s;
         }
 
         if (type === 'seconds')
@@ -37,7 +37,7 @@ export default class Utils {
             if (+time >= 3600) {
                 h = (+time / 3600).toFixed();
             }
-            m = !h ? (+time / 60).toFixed() : ((+time - (+h * 3600)) - 60) > 0 ? ((+time - (+h * 3600)) - 60) : 0;
+            m = !h ? Math.floor(+time / 60) : ((+time - (+h * 3600)) - 60) > 0 ? ((+time - (+h * 3600)) - 60) : 0;
             s = !h ? +time - (+m * 60) : (+time - (+h * 3600)) > 60 ? ((+time - (+h * 3600)) - 60) : (+time - (+h * 3600));
 
             return (h ? ((h?.toString().length == 1 ? '0' + h : h) + ' : ') : '') + (m.toString().length == 1 ? '0' + m : m) + ' : ' + (s.toString().length == 1 ? '0' + s : s);
