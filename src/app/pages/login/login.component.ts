@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
   loginAsQuest() {
     this.slideshowService.getUUID().subscribe({
       next: (res: any) => {
-        this.user.username = 'Quest-' + res.uuid;
+        this.user.username = 'quest-' + res.uuid;
         this.user.email = this.user.username + '@gmail.com';
         this.user.password = 'pass-' + res.uuid;
 

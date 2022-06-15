@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'http://app-2f0bf307-725b-41a8-8173-90445e75a1c1.cleverapps.io/',
+  backendUrl: 'http://localhost:3305/',
   cloudName: 'dzbizu8pe',
   uploadPreset: 'awhrycmx',
   ytBaseUrl: 'https://www.googleapis.com/youtube/v3/',
