@@ -32,7 +32,7 @@ export class CreateComponent implements OnInit {
       if (slideshow) {
         this.slideshowService.getUUID().subscribe({
           next: (res: any) => {
-            slideshow.user_id = this.userService.userData.id;
+            slideshow.user_id = this.userService.userData._id;
             slideshow.url = res.uuid;
 
             this.slideshowService.createSlideshow(slideshow).subscribe((res: any) => {

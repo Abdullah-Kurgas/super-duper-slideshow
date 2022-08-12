@@ -80,7 +80,7 @@ export class SlideshowComponent implements OnInit {
                 return;
               }
 
-              slide.id = res.insertId;
+              slide._id = res.insertId;
               this.slideshow.slides?.push(slide);
 
               this.loaderService.hideLoading();
@@ -108,7 +108,7 @@ export class SlideshowComponent implements OnInit {
               return;
             }
 
-            const index = this.slideshow.slides.findIndex((el) => el.id === slide.id);
+            const index = this.slideshow.slides.findIndex((el) => el._id === slide._id);
             this.slideshow.slides[index] = slide;
 
             this.loaderService.hideLoading();
@@ -126,7 +126,7 @@ export class SlideshowComponent implements OnInit {
   deleteSlide(slide: Slide, i: number) {
     slide.isLoading = true;
 
-    this.slideService.deleteSlide(slide.id!).subscribe({
+    this.slideService.deleteSlide(slide._id!).subscribe({
       next: (res: any) => {
         if (res.errno) {
           this.apiService.showToasrtMsg('error', res.sqlMessage);

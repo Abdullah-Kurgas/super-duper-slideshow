@@ -44,19 +44,20 @@ export class LoginComponent implements OnInit {
 
     this.userService.executeLogin(this.user).subscribe({
       next: (res: any) => {
-        if (!res.id) {
+        if (!res._id) {
           this.errMessage = res.msg;
           this.isLoading = false;
           return
         };
+        this.userService.userData = res;
 
         if (this.isCheckBoxChecked) {
           localStorage.setItem('userData', JSON.stringify(res));
         } else {
           sessionStorage.setItem('userData', JSON.stringify(res));
         }
+        
         this.router.navigate(['dashboard']).then(() => {
-          this.userService.userData = Utils.getDataFromLocalOrSession('userData');
           this.isLoading = false;
         });
       },

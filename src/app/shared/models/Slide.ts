@@ -1,5 +1,5 @@
 export class Slide {
-    id!: number;
+    _id!: number;
     image!: string;
     video_url!: string;
     website_url!: string

@@ -13,7 +13,7 @@ export class UserAuth implements CanActivate {
   canActivate(): | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.userData = JSON.parse(localStorage.getItem('userData') || sessionStorage.getItem('userData') || '{}');
 
-    if (this.userData.id) {
+    if (this.userData._id) {
       return true;
     }
 

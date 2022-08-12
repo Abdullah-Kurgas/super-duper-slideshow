@@ -1,7 +1,7 @@
 import { Slide } from "./Slide";
 
 export class Slideshow {
-    id!: number;
+    _id!: number;
     name!: string;
     url!: string;
     user_id!: number;
