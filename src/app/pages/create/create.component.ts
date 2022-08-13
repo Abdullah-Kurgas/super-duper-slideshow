@@ -30,10 +30,7 @@ export class CreateComponent implements OnInit {
   createSlideshow() {
     this.apiService.showModal('slideshow').afterClosed().subscribe((slideshow: Slideshow) => {
       if (slideshow) {
-        this.slideshowService.getUUID().subscribe({
-          next: (res: any) => {
             slideshow.user_id = this.userService.userData._id;
-            slideshow.url = res.uuid;
 
             this.slideshowService.createSlideshow(slideshow).subscribe((res: any) => {
               if (res.errno) {
@@ -43,14 +40,9 @@ export class CreateComponent implements OnInit {
               }
 
               this.apiService.showToasrtMsg('success', res.msg);
-              this.router.navigate([`dashboard/slideshow/${slideshow.url}`]);
+              this.router.navigate([`dashboard/slideshow/${res.uuid}`]);
               this.loaderService.hideLoading();
             })
-          },
-          error: (err: Error) => {
-            this.apiService.showToasrtMsg('error', err.message);
-          }
-        })
       }
     })
   }

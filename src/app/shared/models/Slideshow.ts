@@ -6,6 +6,6 @@ export class Slideshow {
     url!: string;
     user_id!: number;
     slides!: Slide[];
-    created_date!: string;
+    created_at!: string;
     isLoading!: boolean;
 }

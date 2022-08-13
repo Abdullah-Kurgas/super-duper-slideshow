@@ -69,11 +69,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginAsQuest() {
-    this.slideshowService.getUUID().subscribe({
-      next: (res: any) => {
-        this.user.username = 'quest-' + res.uuid;
         this.user.email = this.user.username + '@gmail.com';
-        this.user.password = 'pass-' + res.uuid;
 
         this.userService.executeSignUp(this.user).subscribe({
           next: (res: any) => {
@@ -92,13 +88,7 @@ export class LoginComponent implements OnInit {
             this.user = new User();
             this.loaderService.hideLoading();
           }
-        })
-      },
-      error: (err: Error) => {
-        this.apiService.showToasrtMsg('error', err.message);
-        this.loaderService.hideLoading();
-      }
-    })
+        });
   }
 }
 

@@ -80,7 +80,7 @@ export class SlideshowComponent implements OnInit {
                 return;
               }
 
-              slide._id = res.insertId;
+              slide._id = res.insertedId;
               this.slideshow.slides?.push(slide);
 
               this.loaderService.hideLoading();

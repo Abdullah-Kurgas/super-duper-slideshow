@@ -10,10 +10,6 @@ export class SlideshowService {
 
   constructor(private http: HttpClient) { }
 
-  getUUID() {
-    return this.http.get(environment.backendUrl + 'getUuid');
-  }
-
   getSlideshow(uuid: string) {
     return this.http.put(environment.backendUrl + `getSlideshow`, { uuid: uuid });
   }
