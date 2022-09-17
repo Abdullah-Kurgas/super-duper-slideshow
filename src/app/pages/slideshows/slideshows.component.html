@@ -8,13 +8,14 @@
                     <span>{{baseUrl + slideshow.url}}</span>
                 </div>
             </div>
-            <span role="button" class="fw-bold" (click)="utils.copyLink($event, slideshow.url)">Copy</span>
             <div class="mt-3 d-flex align-items-center">
-                <button type="button" class="btn btn-secondary mx-1" [routerLink]="'/dashboard/slideshow/'+ slideshow.url">
+                <button type="button" class="btn btn-secondary" [routerLink]="'/dashboard/slideshow/'+ slideshow.url">
                     <i class="bi bi-pencil-fill"></i>
                 </button>
 
-                <button type="button" class="btn btn-danger mx-1" (click)="deleteSlideshow(slideshow, i)">
+                <i class="bi bi-clipboard btn btn-success mx-2" (click)="utils.copyLink($event, slideshow.url)"></i>
+
+                <button type="button" class="btn btn-danger" (click)="deleteSlideshow(slideshow, i)">
                     <i class="bi bi-trash-fill" [hidden]="slideshow.isLoading"></i>
                     <div class="spinner-border spinner-border-sm mx-2" role="status" [hidden]="!slideshow.isLoading">
                         <span class="visually-hidden">Loading...</span>

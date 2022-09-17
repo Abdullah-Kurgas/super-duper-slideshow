@@ -13,8 +13,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-input{
-  &:focus-visible{
+input {
+  &:focus-visible {
     outline: none;
   }
 }
@@ -87,25 +87,16 @@ input{
 .sl-popover {
   position: relative;
 
-  &::before {
-      content: 'Copied';
-      position: absolute;
-      bottom: 1.5rem;
-      right: -15px;
-      padding: .2rem .5rem;
-      background-color: #000000bb;
-      border-radius: 3px;
-      color: white;
-      cursor: auto;
-  }
-
   &::after {
-      position: absolute;
-      content: "";
-      top: -8px;
-      right: 10px;
-      transform: rotate(270deg);
-      border: 5px solid #ffd70000;
-      border-right: 5px solid #000000bb;
+    content: 'Copied';
+    position: absolute;
+    bottom: 2.5rem;
+    right: 50%;
+    transform: translate(50%, 0);
+    padding: .2rem .5rem;
+    background-color: #000000bb;
+    border-radius: 3px;
+    color: white;
+    cursor: auto;
   }
 }
