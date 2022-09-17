@@ -18,7 +18,7 @@
                     <span>{{userService.userData.username.substring(0, 1).toUpperCase()}}</span>
                 </span>
                 <div class="user-menu" *ngIf="isUserMenuOpened" (click)="openUserMenu($event, 'stay')">
-                    <div class="menu-item">Profile</div>
+                    <div class="menu-item" (click)="showProfile()">Profile</div>
                     <div class="menu-item" (click)="logout()">Logout</div>
                 </div>
             </div>

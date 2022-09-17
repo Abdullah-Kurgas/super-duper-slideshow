@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/shared/services/api.service';
 import { LoaderService } from 'src/app/shared/services/loader.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -12,13 +13,11 @@ export class DashboardComponent implements OnInit {
   isUserMenuOpened: boolean = false;
   screenWidth: number = window.screen.availWidth;
 
-  constructor(public router: Router, public userService: UserService, private loaderService: LoaderService) { }
+  constructor(public router: Router, public userService: UserService, private loaderService: LoaderService, private apiService: ApiService) { }
 
   ngOnInit(): void {
     if (this.router.url === '/dashboard')
       this.router.navigate(['dashboard/create']);
-      
-      
   }
 
   openUserMenu(e: Event, page?: string) {
@@ -31,6 +30,10 @@ export class DashboardComponent implements OnInit {
       this.isUserMenuOpened = !this.isUserMenuOpened;
       e.stopPropagation();
     }
+  }
+
+  showProfile() {
+    this.apiService.showModal('profile', this.userService.userData).afterClosed();
   }
 
   logout() {
