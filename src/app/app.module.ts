@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { YouTubePlayerModule } from "@angular/youtube-player";
 import { ToastrModule } from 'ngx-toastr';
+import { urlSanitizerPipe } from './shared/pipes/urlSanitizer.pipe';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -22,7 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ShowComponent } from './pages/show/show.component';
-import { urlSanitizerPipe } from './shared/pipes/urlSanitizer.pipe';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, ModalComponent, LoaderComponent, ShowComponent, urlSanitizerPipe],
@@ -39,6 +41,7 @@ import { urlSanitizerPipe } from './shared/pipes/urlSanitizer.pipe';
     ToastrModule.forRoot({
       timeOut: 1500
     }),
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent],

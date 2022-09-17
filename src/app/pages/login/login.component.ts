@@ -56,39 +56,37 @@ export class LoginComponent implements OnInit {
         } else {
           sessionStorage.setItem('userData', JSON.stringify(res));
         }
-        
+
         this.router.navigate(['dashboard']).then(() => {
           this.isLoading = false;
         });
       },
       error: (err: Error) => {
         this.isLoading = false;
-        this.apiService.showToasrtMsg('error', err.message);
+        this.apiService.showToasrtMsg('error<', err.message);
       }
     })
   }
 
   loginAsQuest() {
-        this.user.email = this.user.username + '@gmail.com';
+    this.user.role = 'QUEST';
 
-        this.userService.executeSignUp(this.user).subscribe({
-          next: (res: any) => {
-            this.user = new User();
+    this.userService.executeSignUp(this.user).subscribe({
+      next: (res: any) => {
+        this.user = new User();
+        localStorage.setItem('userData', JSON.stringify(res));
 
-            localStorage.setItem('userData', JSON.stringify(res));
-            this.apiService.showToasrtMsg('success', 'User successfully created');
-            
-            this.router.navigate(['dashboard']).then(() => {
-              this.userService.userData = Utils.getDataFromLocalOrSession('userData');
-              this.loaderService.hideLoading();
-            });
-          },
-          error: (err: Error) => {
-            this.apiService.showToasrtMsg('error', err.message);
-            this.user = new User();
-            this.loaderService.hideLoading();
-          }
+        this.router.navigate(['dashboard']).then(() => {
+          this.userService.userData = Utils.getDataFromLocalOrSession('userData');
+          this.loaderService.hideLoading();
         });
+      },
+      error: (err: Error) => {
+        this.apiService.showToasrtMsg('error', err.message);
+        this.user = new User();
+        this.loaderService.hideLoading();
+      }
+    });
   }
 }
 
