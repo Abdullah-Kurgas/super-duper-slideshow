@@ -2,6 +2,7 @@
 
     <div class="slide" *ngFor="let slide of slides">
         <div class="image" *ngIf="slide.image && !slide.video_url" [style]="'background:url('+slide.image+')'"></div>
+        
         <iframe *ngIf="slide.website_url" [src]="slide.website_url | urlSanitizer" frameborder="0"></iframe>
 
         <youtube-player *ngIf="slide.video_url" [width]="videoWidth" [height]="videoHeight" suggestedQuality="highres"
