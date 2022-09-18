@@ -13,7 +13,7 @@
                     <i class="bi bi-pencil-fill"></i>
                 </button>
 
-                <i class="bi bi-clipboard btn btn-success mx-2" (click)="utils.copyLink($event, slideshow.url)"></i>
+                <i class="bi btn btn-success mx-2" #id [class]="utils.getCopiedLink() == id ? 'bi-clipboard-check-fill':'bi-clipboard'" (click)="utils.copyLink($event, slideshow.url)"></i>
 
                 <button type="button" class="btn btn-danger" (click)="deleteSlideshow(slideshow, i)">
                     <i class="bi bi-trash-fill" [hidden]="slideshow.isLoading"></i>

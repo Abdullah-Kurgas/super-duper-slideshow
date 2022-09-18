@@ -49,16 +49,12 @@ export class ShowComponent implements OnInit {
   ngOnInit(): void {
     this.slideService.getSlides(this.route.snapshot.params['id']).subscribe({
       next: (res: any) => {
-        if (res?.errno || !res) {
-          this.apiService.showToasrtMsg('error', (res?.sqlMessage || 'Internal Server Error, status 500'));
-          this.loaderService.hideFullScreenLoading();
-          return;
-        }
-
         this.slides = res;
 
         this.slideDuration = Number(this.utils.convertTime(this.slides[this.slideNumber].duration, 'seconds'));
         this.loaderService.hideFullScreenLoading();
+        this.isPlaying = true;
+        this.startTimer(false, 1000);
       },
       error: (err: Error) => {
         this.loaderService.hideFullScreenLoading();

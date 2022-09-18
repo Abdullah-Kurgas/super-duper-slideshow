@@ -1,13 +1,16 @@
+import { Target } from "@angular/compiler";
+
 export default class Utils {
     private static baseUrl: string = location.origin;
-    private static copiedLink: any;
+    private static copiedLink: Target | undefined;
 
     static getDataFromLocalOrSession(key: string) {
         return JSON.parse((localStorage.getItem(key) || sessionStorage.getItem(key))!);
     }
 
     static copyLink(e: any, url: string) {
-        if (this.copiedLink == e.target || this.copiedLink) return;
+        if (this.copiedLink == e.target) return;
+        this.copiedLink = undefined;
 
         navigator.clipboard.writeText(this.baseUrl + '/' + url).then(() => {
             e.target.classList.add('sl-popover');
@@ -15,9 +18,11 @@ export default class Utils {
 
             setTimeout(() => {
                 e.target.classList.remove('sl-popover');
-                this.copiedLink = undefined;
-            }, 500)
+            }, 700)
         }).catch(e => console.error(e));
+    }
+    static getCopiedLink() {
+        return this.copiedLink;
     }
 
     static convertTime(time: string, type: string) {

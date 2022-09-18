@@ -30,12 +30,7 @@
         height: 4rem;
         font-size: 2.5rem;
         color: gray;
-        opacity: 0;
         transition: opacity 0.2s ease-in-out;
-
-        &:hover{
-            opacity: 1;
-        }
     }
 
     .duration{

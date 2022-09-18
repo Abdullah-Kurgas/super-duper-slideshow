@@ -6,9 +6,9 @@
             <div class="input-group col-sm-10">
                 <input type="text" class="form-control" name="slideshowName" [(ngModel)]="slideshow.name"
                     [disabled]="!enableEditing">
-                <button class="btn btn-outline-secondary" type="button">
-                    <i class="bi bi-pencil-square" *ngIf="!enableEditing" (click)="editSlideshow('edit')"></i>
-                    <i class="bi bi-check2-square" *ngIf="enableEditing" (click)="editSlideshow('save')"
+                <button class="btn btn-outline-secondary" type="button" (click)="editSlideshow()">
+                    <i class="bi bi-pencil-square" *ngIf="!enableEditing" ></i>
+                    <i class="bi bi-check2-square" *ngIf="enableEditing"
                         [hidden]="slideshow.isLoading"></i>
                     <div class="spinner-border spinner-border-sm m-0" role="status" [hidden]="!slideshow.isLoading">
                         <span class="visually-hidden">Loading...</span>
@@ -20,7 +20,7 @@
             <label for="staticEmail" class="col-sm-2 col-form-label">Slideshow url:</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="slideshowUrl" [(ngModel)]="slideshow.url" disabled>
-                    <i class="bi bi-clipboard btn btn-outline-secondary" (click)="utils.copyLink($event, slideshow.url)"></i>
+                    <i class="bi btn btn-outline-secondary" #target [class]="utils.getCopiedLink() == target ? 'bi-clipboard-check-fill':'bi-clipboard'" (click)="utils.copyLink($event, slideshow.url)"></i>
               </div>
         </div>
     </div>
@@ -62,4 +62,4 @@
 </div>
 
 <button mat-flat-button color="primary" class="mt-4 mx-4 px-5" [routerLink]="'/'+ slideshow.url"
-    [disabled]="slideshow.slides?.length === 0 || serverError">Preview</button>
+    [disabled]="slideshow.slides?.length === 0">Preview</button>

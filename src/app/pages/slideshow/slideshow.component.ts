@@ -19,7 +19,6 @@ export class SlideshowComponent implements OnInit {
   slideshow: Slideshow = new Slideshow();
 
   enableEditing: boolean = false;
-  serverError: boolean = false;
 
   utils = Utils
 
@@ -39,15 +38,15 @@ export class SlideshowComponent implements OnInit {
       },
       error: (err: Error) => {
         this.loaderService.hideFullScreenLoading();
-        this.apiService.showToasrtMsg('error', err.message);
-        this.serverError = true;
       }
     })
   }
 
-  editSlideshow(type: string) {
-    this.enableEditing = true;
-    if (type === 'edit') return;
+  editSlideshow() {
+    if (!this.enableEditing) {
+      this.enableEditing = true;
+      return
+    };
 
     this.slideshow.isLoading = true;
     this.slideshowService.editSlideshow(this.slideshow).subscribe({
@@ -58,7 +57,7 @@ export class SlideshowComponent implements OnInit {
         this.slideshow.isLoading = false;
       },
       error: (err: Error) => {
-        this.apiService.showToasrtMsg('error', err.message);
+        this.loaderService.hideFullScreenLoading();
 
         this.slideshow.isLoading = false;
       }
@@ -74,12 +73,6 @@ export class SlideshowComponent implements OnInit {
         if (slide) {
           this.slideService.createSlide(slide).subscribe({
             next: (res: any) => {
-              if (res.errno) {
-                this.apiService.showToasrtMsg('error', res.sqlMessage);
-                this.loaderService.hideLoading();
-                return;
-              }
-
               slide._id = res.insertedId;
               this.slideshow.slides?.push(slide);
 
@@ -87,7 +80,6 @@ export class SlideshowComponent implements OnInit {
               this.apiService.showToasrtMsg('success', res.msg);
             },
             error: (err: Error) => {
-              this.apiService.showToasrtMsg('error', err.message);
               this.loaderService.hideLoading();
             }
           })
@@ -102,11 +94,6 @@ export class SlideshowComponent implements OnInit {
 
         this.slideService.editSlide(slide).subscribe({
           next: (res: any) => {
-            if (res.errno) {
-              this.apiService.showToasrtMsg('error', res.sqlMessage);
-              this.loaderService.hideLoading();
-              return;
-            }
 
             const index = this.slideshow.slides.findIndex((el) => el._id === slide._id);
             this.slideshow.slides[index] = slide;
@@ -115,7 +102,6 @@ export class SlideshowComponent implements OnInit {
             this.apiService.showToasrtMsg('success', res.msg);
           },
           error: (err: Error) => {
-            this.apiService.showToasrtMsg('error', err.message);
             this.loaderService.hideLoading();
           },
         })
@@ -128,11 +114,6 @@ export class SlideshowComponent implements OnInit {
 
     this.slideService.deleteSlide(slide._id!).subscribe({
       next: (res: any) => {
-        if (res.errno) {
-          this.apiService.showToasrtMsg('error', res.sqlMessage);
-          slide.isLoading = false;
-          return;
-        }
 
         this.slideshow.slides?.splice(i, 1);
 
@@ -140,7 +121,6 @@ export class SlideshowComponent implements OnInit {
         this.apiService.showToasrtMsg('success', res.msg);
       },
       error: (err: Error) => {
-        this.apiService.showToasrtMsg('error', err.message);
         slide.isLoading = false;
       }
     })
