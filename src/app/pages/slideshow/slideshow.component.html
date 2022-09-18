@@ -1,58 +1,65 @@
-<div>
-    <div class="slideshow-info">
-        <div>
-            <span class="fw-bold">Slideshow name</span>
-            <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.name"
-                [disabled]="!enableEditing">
+<div class="p-4">
 
-            <mat-icon role="button" *ngIf="!enableEditing" (click)="editSlideshow('edit')">edit</mat-icon>
-            <mat-icon role="button" *ngIf="enableEditing" (click)="editSlideshow('save')"
-                [hidden]="slideshow.isLoading">done_all</mat-icon>
-            <div class="spinner-border spinner-border-sm m-0" role="status" [hidden]="!slideshow.isLoading">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-        <div>
-            <span class="fw-bold">Slideshow URL</span>
-            <input type="text" name="slideshowName" class="p-1 mx-3" [(ngModel)]="slideshow.url" disabled>
-            <span role="button" class="fw-bold" (click)="utils.copyLink($event, slideshow.url)">Copy</span>
-        </div>
-    </div>
-
-    <div class="slides-parent scroll-bar">
-
-        <div class="d-flex flex-column align-items-center mx-2" *ngFor="let slide of slideshow.slides; let i = index">
-            <div class="row">
-                <button mat-icon-button class="col-6 m-2 btn btn-secondary" (click)="editSlide(slide)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button class="col-6 m-2 btn btn-danger" (click)="deleteSlide(slide, i)">
-                    <mat-icon [hidden]="slide.isLoading">delete</mat-icon>
-                    <div class="spinner-border spinner-border-sm" role="status" [hidden]="!slide.isLoading">
+    <div class="mb-3 row">
+        <div class="mb-3">
+            <label class="col-sm-2 col-form-label">Slideshow name:</label>
+            <div class="input-group col-sm-10">
+                <input type="text" class="form-control" name="slideshowName" [(ngModel)]="slideshow.name"
+                    [disabled]="!enableEditing">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="bi bi-pencil-square" *ngIf="!enableEditing" (click)="editSlideshow('edit')"></i>
+                    <i class="bi bi-check2-square" *ngIf="enableEditing" (click)="editSlideshow('save')"
+                        [hidden]="slideshow.isLoading"></i>
+                    <div class="spinner-border spinner-border-sm m-0" role="status" [hidden]="!slideshow.isLoading">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </button>
             </div>
-
-            <div class="slide-content">
-                <h2 *ngIf="slide.website_url" class="m-0">{{slide.website_url}}</h2>
-                <img *ngIf="slide.image && !slide.video_url" [src]="slide.image">
-                <div class="video-content" *ngIf="slide.video_url">
-                    <img [src]="slide.image">
-                    <span class="text-center">{{slide.video_url.substring(0 ,(slide.video_url.indexOf('&') > -1 ?
-                        slide.video_url.indexOf('&'):undefined))}}</span>
-                </div>
-            </div>
-
-            <input type="text" name="duration" class="w-75 mt-2 text-center" disabled
-                [value]="utils.convertTime(slide.duration, 'fullTime')">
         </div>
-
-        <div class="create-btn" (click)="createSlide()">
-            <i class="bi bi-plus"></i>
+        <div>
+            <label for="staticEmail" class="col-sm-2 col-form-label">Slideshow url:</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="slideshowUrl" [(ngModel)]="slideshow.url" disabled>
+                    <i class="bi bi-clipboard btn btn-outline-secondary" (click)="utils.copyLink($event, slideshow.url)"></i>
+              </div>
         </div>
     </div>
 
-    <button mat-flat-button color="primary" class="mt-5 px-5" [routerLink]="'/'+ slideshow.url"
-        [disabled]="slideshow.slides?.length === 0 || serverError">Preview</button>
 </div>
+
+<div class="slides-parent scroll-bar">
+
+    <div class="d-flex flex-column align-items-center mx-2" *ngFor="let slide of slideshow.slides; let i = index">
+        <div class="row">
+            <button mat-icon-button class="col-6 m-2 btn btn-secondary" (click)="editSlide(slide)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button class="col-6 m-2 btn btn-danger" (click)="deleteSlide(slide, i)">
+                <mat-icon [hidden]="slide.isLoading">delete</mat-icon>
+                <div class="spinner-border spinner-border-sm" role="status" [hidden]="!slide.isLoading">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </button>
+        </div>
+
+        <div class="slide-content">
+            <h2 *ngIf="slide.website_url" class="m-0">{{slide.website_url}}</h2>
+            <img *ngIf="slide.image && !slide.video_url" [src]="slide.image">
+            <div class="video-content" *ngIf="slide.video_url">
+                <img [src]="slide.image">
+                <span class="text-center">{{slide.video_url.substring(0 ,(slide.video_url.indexOf('&') > -1 ?
+                    slide.video_url.indexOf('&'):undefined))}}</span>
+            </div>
+        </div>
+
+        <input type="text" name="duration" class="w-75 mt-2 text-center" disabled
+            [value]="utils.convertTime(slide.duration, 'fullTime')">
+    </div>
+
+    <div class="create-btn" (click)="createSlide()">
+        <i class="bi bi-plus"></i>
+    </div>
+</div>
+
+<button mat-flat-button color="primary" class="mt-4 mx-4 px-5" [routerLink]="'/'+ slideshow.url"
+    [disabled]="slideshow.slides?.length === 0 || serverError">Preview</button>
