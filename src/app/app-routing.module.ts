@@ -9,6 +9,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { SlideshowComponent } from './pages/slideshow/slideshow.component';
 import { SlideshowsComponent } from './pages/slideshows/slideshows.component';
 import { ShowComponent } from './pages/show/show.component';
+import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
     path: 'dashboard', component: DashboardComponent, canActivate: [UserAuth], children: [
       { path: 'create', component: CreateComponent },
       { path: 'slideshow/:id', component: SlideshowComponent },
-      { path: 'slideshows', component: SlideshowsComponent }
+      { path: 'slideshows', component: SlideshowsComponent },
+      { path: 'users', component: UsersComponent }
     ]
   },
   { path: ':id', component: ShowComponent }

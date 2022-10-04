@@ -5,4 +5,5 @@ export class User {
   password!: string;
   created_at!: string;
   role!: string;
+  isLoading!: boolean;
 }

@@ -15,6 +15,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CreateComponent } from './pages/create/create.component';
 import { SlideshowComponent } from './pages/slideshow/slideshow.component';
 import { SlideshowsComponent } from './pages/slideshows/slideshows.component';
+import { UsersComponent } from './pages/users/users.component';
 
 // Material modules
 import { MatDialogModule } from '@angular/material/dialog';
@@ -27,7 +28,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, ModalComponent, LoaderComponent, ShowComponent, urlSanitizerPipe],
+  declarations: [AppComponent, LoginComponent, SignUpComponent, DashboardComponent, CreateComponent, SlideshowComponent, SlideshowsComponent, UsersComponent, ModalComponent, LoaderComponent, ShowComponent, urlSanitizerPipe],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -1,0 +1,14 @@
+.users-list {
+    overflow: auto;
+    max-height: 92vh;
+    padding: 0.5rem 5px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    mat-icon {
+        &:hover {
+            opacity: .7;
+        }
+    }
+}

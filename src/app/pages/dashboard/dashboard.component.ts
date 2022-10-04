@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { LoaderService } from 'src/app/shared/services/loader.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class DashboardComponent implements OnInit {
   isUserMenuOpened: boolean = false;
   screenWidth: number = window.screen.availWidth;
 
-  constructor(public router: Router, public userService: UserService, private loaderService: LoaderService, private apiService: ApiService) { }
+  constructor(public router: Router, public userService: UserService, private apiService: ApiService) { }
 
   ngOnInit(): void {
     if (this.router.url === '/dashboard')

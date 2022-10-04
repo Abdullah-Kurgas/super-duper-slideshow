@@ -25,7 +25,7 @@
         </div>
         <div class="card-footer d-flex justify-content-between align-items-center">
             <div>
-                <span>Expires in {{getRemaining(slideshow.created_at.split(',')[0])}}
+                <span>Created before {{getRemaining(slideshow.created_at.split(',')[0])}}
                     {{getRemaining(slideshow.created_at.split(',')[0]) == 1 ? 'day' : 'days'}}</span>
             </div>
             <span class="mx-3">{{slideshow.slides?.length}} {{slideshow.slides?.length == 1 ? 'Slide' :

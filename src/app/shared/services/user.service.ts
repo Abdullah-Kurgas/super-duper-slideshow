@@ -19,4 +19,13 @@ export class UserService {
   executeSignUp(user: User) {
     return this.http.post(environment.backendUrl + 'executeSignUp', user);
   }
+
+  getUsers() {
+    return this.http.get(environment.backendUrl + 'users');
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete(environment.backendUrl + 'deleteUser/' + id);
+  }
+
 }
