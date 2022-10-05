@@ -3,12 +3,12 @@
 
         <div class="mx-4 d-flex align-items-center">
             <i (click)="drawer.toggle()" class="fs-4 bi bi-list"></i>
-            <h3 class="mx-2 my-0"><b>Super Duper Slideshow</b></h3>
+            <h4 class="mx-2 my-0"><b>Super Duper Slideshow</b></h4>
         </div>
 
         <div class="user">
             <span class="info">
-                <div>{{userService.userData.username.substring(0, 10)}}{{userService.userData.username.length > 10 ?
+                <div>{{userService.userData.username.substring(0, 5)}}{{userService.userData.username.length > 10 ?
                     '...' : ''}}</div>
                 <div>{{userService.userData.role}}</div>
             </span>
