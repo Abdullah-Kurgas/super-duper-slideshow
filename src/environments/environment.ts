@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'https://super-slideshow-backend.herokuapp.com/',
+  backendUrl: 'https://sds-service.onrender.com/',
   cloudName: 'dzbizu8pe',
   uploadPreset: 'awhrycmx',
   ytBaseUrl: 'https://www.googleapis.com/youtube/v3/',
